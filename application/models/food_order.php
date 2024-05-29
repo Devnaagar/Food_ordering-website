@@ -165,4 +165,20 @@ class Food_order extends CI_Model {
         return $this->db->delete('orders');
     }
 
+
+    //adminssssssssssss
+    public function check_admin_login($username, $email, $password) {
+        $this->db->where('name', $username);
+        $this->db->where('email', $email);
+        $query = $this->db->get('admin');
+
+        if ($query->num_rows() == 1) {
+            $admin = $query->row_array();
+            if ($password== $admin['password']) {
+                return $admin;
+            }
+        }
+        return false;
+    }
+
 }
