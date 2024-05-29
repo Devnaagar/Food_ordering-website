@@ -1,0 +1,30 @@
+.nav-link1{
+    font-size: 20px;
+    display: flex;
+    justify-content: start;
+    overflow: hidden;
+}
+
+.nav-link1 i{
+    font-size: 30px;
+    width: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+    /* text-align: end; */
+
+}
+
+.nav-link2 i{
+    margin-right: 10px;
+}
+
+.right{
+    text-align: end;
+    margin-right: 0px;
+
+}
+
+
+.save{
+    height: 38px;
+}
