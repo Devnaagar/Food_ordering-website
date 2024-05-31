@@ -13,26 +13,26 @@ class Admin_login extends CI_Controller {
     
     public function login() {
         $data=array();
-		$this->template->load('front-layout/default_layout', 'contents', 'frontend/admin_login',$data);
+		$this->template->load('admin-layout/admin_front-layout/default_layout', 'contents', 'frontend/admin_login',$data);
         // $this->load->view('admin_login');
     }
     
     public function do_login() {
-        $this->form_validation->set_rules('username', 'Username', 'required');
+        // $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-		    $this->template->load('front-layout/default_layout', 'contents', 'frontend/admin_login');
+		    $this->template->load('admin-layout/admin_front-layout/default_layout', 'contents', 'frontend/admin_login');
         } else {
 
 
             // echo "<pre>";print_r($_POST);die;
-            $username = $this->input->post('username');
+            // $username = $this->input->post('username');
             $email = $this->input->post('email');
             $password = $this->input->post('password');
             
-            $admin = $this->food_order->check_admin_login($username, $email, $password);
+            $admin = $this->food_order->check_admin_login($email, $password);
             
             if ($admin) {
                 $this->session->set_userdata('admin_id', $admin->id);

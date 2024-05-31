@@ -24,7 +24,7 @@
                                     <label for="location">Locations : &nbsp;</label>
                                         <select name="location_ref" id="location" class="form-control col-lg-3">
                                             <?php foreach($locations as $location): ?>
-                                                <option value="<?php echo $location['id']; ?>"><?php echo $location['id']; ?></option>
+                                                <option value="<?php echo $location['id']; ?>"><?php echo $location['Loca_name']; ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     

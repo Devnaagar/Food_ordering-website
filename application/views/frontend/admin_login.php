@@ -11,10 +11,6 @@
             <h2 class="text-center">Admin Login</h2>
             <form action="<?php echo site_url('admin/admin_login/do_login'); ?>" method="post" class="">
                 <div class="form-group">
-                    <label for="username">Name</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
-                </div>
-                <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
@@ -22,7 +18,7 @@
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
-                <button type="submit" class="btn btn-primary col-lg-12"><a href="">Login</a></button>
+                <button type="submit" class="btn btn-primary col-lg-12">Login</button>
             </form>
         </div>
     </div>

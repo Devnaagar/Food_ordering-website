@@ -15,7 +15,7 @@
         }
         .foot{
             color: aliceblue;
-            height: 50px;
+            height: 90px;
         }
         .texts{
             margin-top: 10px;
@@ -34,11 +34,10 @@
     <footer class="bg-dark text-center text-lg-start mt-auto foot">
         <div class="texts">
 
-            <strong c>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0
-            </div>
+            <p><strong>For any assistance, please feel free to call CS Helpdesk at 0288 35 12345, Email ID : . You may refer to User Manual or FAQs for assistance as most of your queries in relevance are addressed. &copy; 2014-2021 <a href="https://adminlte.io">jmd.cshelpdesk@zmail.ril.com</a>.</strong>
+                <br>All rights reserved.</p>
+            
+
         </div>
     </footer>
 

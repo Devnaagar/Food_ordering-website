@@ -146,10 +146,7 @@ class Food_order extends CI_Model {
     }
 
 
-    //orderssssssssss
-    // public function create_order($data) {
-    //     return $this->db->insert('orders', $data);
-    // }
+    //ordersssssssss
 
     public function get_all_order() {
         $this->db->select('orders.order_id,orders.order_no,orders.order_amt,orders.order_at,users.user_id,users.name');
@@ -167,8 +164,8 @@ class Food_order extends CI_Model {
 
 
     //adminssssssssssss
-    public function check_admin_login($username, $email, $password) {
-        $this->db->where('name', $username);
+    public function check_admin_login( $email, $password) {
+        // $this->db->where('name', $username);
         $this->db->where('email', $email);
         $query = $this->db->get('admin');
 
@@ -179,6 +176,42 @@ class Food_order extends CI_Model {
             }
         }
         return false;
+    }
+
+     //usersssssss
+     public function check_user_login( $mobile, $password) {
+        // $this->db->where('name', $username);
+        $this->db->where('mobile', $mobile);
+        $query = $this->db->get('users');
+
+        if ($query->num_rows() == 1) {
+            $user = $query->row_array();
+            if ($password== $user['password']) {
+                return $user;
+            }
+        }
+        return false;
+    }
+
+
+    public function save_otp($mobile_number, $otp) {
+        $data = array(
+            'mobile' => $mobile_number,
+            'otp' => $otp
+        );
+        return $this->db->insert('users', $data);
+    }
+
+    public function get_latest_otp($mobile_number) {
+        $this->db->where('mobile', $mobile_number);
+        $this->db->order_by('createdat', 'DESC');
+        $query = $this->db->get('users');
+        return $query->row_array();
+    }
+
+    public function update_info($data,$mobile_number) {
+        $this->db->where('mobile', $mobile_number);
+        $this->db->update('users', $data);
     }
 
 }

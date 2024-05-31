@@ -21,6 +21,12 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		$data = array();
-		$this->template->load('front-layout/default_layout', 'contents', 'frontend/admin_login',$data);
+		$this->template->load('front-layout/user_default', 'contents', 'frontend/user_view/user_login',$data);
+	}
+
+	public function admin()
+	{
+		$data = array();
+		$this->template->load('admin-layout/admin_front-layout/default_layout', 'contents', 'frontend/admin_login',$data);
 	}
 }
