@@ -27,13 +27,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="<?php echo base_url(); ?>admin/users/add_user#" class="nav-link nav-link2">
+                    <a href="<?php echo base_url(); ?>admin/dashboard" class="nav-link nav-link2">
                       <i class="fa-solid fa-user-plus"></i>
                       <p>Add New Users</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="<?php echo base_url(); ?>admin/users/lists#" class="nav-link nav-link2">
+                    <a href="<?php echo base_url(); ?>admin/dashboard/user_list" class="nav-link nav-link2">
                       <i class="fa-solid fa-table"></i>
                       <p>User's Table</p>
                     </a>
@@ -41,25 +41,25 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url(); ?>admin/Locations/location_add" class="nav-link nav-link1">
+                <a href="<?php echo base_url(); ?>admin/dashboard/locations" class="nav-link nav-link1">
                   <i class="fa-solid fa-location-dot"></i>
                   <p>Location</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url(); ?>admin/cafeteria/cafe_add" class="nav-link nav-link1">
+                <a href="<?php echo base_url(); ?>admin/dashboard/cafeteria" class="nav-link nav-link1">
                   <i class="fa-solid fa-kitchen-set"></i>
                   <p>Cafeteria</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url(); ?>admin/meals/meal_add" class="nav-link nav-link1">
+                <a href="<?php echo base_url(); ?>admin/dashboard/meals" class="nav-link nav-link1">
                 <i class="fa-solid fa-utensils"></i>
                   <p>Meals</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url(); ?>admin/menu" class="nav-link nav-link1">
+                <a href="<?php echo base_url(); ?>admin/dashboard/menu" class="nav-link nav-link1">
                   <i class="fa-solid fa-pizza-slice"></i>
                   <p>
                     Menu_items
@@ -69,13 +69,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="<?php echo base_url(); ?>admin/menu" class="nav-link nav-link2">
+                    <a href="<?php echo base_url(); ?>admin/dashboard/menu" class="nav-link nav-link2">
                       <i class="fa-solid fa-user-plus"></i>
                       <p>Add New Dish</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="<?php echo base_url(); ?>admin/menu/menu_list" class="nav-link nav-link2">
+                    <a href="<?php echo base_url(); ?>admin/dashboard/menu_list" class="nav-link nav-link2">
                       <i class="fa-solid fa-table"></i>
                       <p>Menu Items List</p>
                     </a>
@@ -83,7 +83,7 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url(); ?>admin/orders/order_add" class="nav-link nav-link1">
+                <a href="<?php echo base_url(); ?>admin/dashboard/orders" class="nav-link nav-link1">
                   <i class="fa-solid fa-box-open"></i>
                   <p>Orders</p>
                 </a>

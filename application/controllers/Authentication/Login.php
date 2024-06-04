@@ -63,11 +63,14 @@ class Login extends CI_Controller {
             // die('in database');
             if ($user) {
                 // die("here");
+                // print_r($user);exit;
                 $this->session->set_userdata('user_id', $user['user_id']);
-                redirect('Authentication/Login/locations');
+                $this->session->set_userdata('user_name', $user['name']);
+                $this->session->set_userdata('mobile', $user['mobile']);
+                redirect('location');
             } else {
                 $this->session->set_flashdata('error', 'Invalid login credentials');
-                redirect('Authentication/Login');
+                redirect('login');
             }
         }
     }
@@ -78,17 +81,13 @@ class Login extends CI_Controller {
 
     }
     
-    public function dashboard() {
-        
-        if (!$this->session->userdata('admin_id')) {
-            redirect('users/user_login');
+    public function dashboard() { 
+        if (!$this->session->userdata('user_id')) {
+            redirect('login');
         }
-		$this->template->load('admin-layout/default_layout', 'contents', 'backend/user/add');
+        redirect('Home');
+		// $this->template->load('admin-layout/default_layout', 'contents', 'backend/user/add');
     }
     
-    public function logout() {
-        $this->session->unset_userdata('admin_id');
-        redirect('Authentication/Login');
-    }
 }
 ?>

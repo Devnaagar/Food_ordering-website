@@ -6,7 +6,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-8 col-12">
                 <div class="card card-primary">
                     <?php echo validation_errors(); ?>
                     <?php echo form_open('Authentication/Signup/add_new_user'); ?>

@@ -94,9 +94,9 @@ public function verify_otp() {
 				'mobile' => $this->input->post('mobile_number'),
 				'password' => $this->input->post('password')
 			);
+
 			$this->food_order->update_info($data, $mobile_number);
-            redirect('Authentication/Login');
-			
+            redirect('login');
 		}
 	}
 }

@@ -72,7 +72,7 @@
                     </div>
                 </div>
                <br>
-                <form class="form-signin" action="<?php echo site_url('users/user_login/dashboard'); ?>" method="post">
+                <form class="form-signin" action="<?php echo site_url('Home'); ?>" method="post">
                     <div class="form-group col-lg-12">
                         <select name="location_ref" id="location" class="form-control col-lg-12">
                             <?php foreach($locations as $location): ?>

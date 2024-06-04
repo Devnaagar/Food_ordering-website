@@ -20,6 +20,7 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+		redirect(base_url('login'));
 		$data = array();
 		$this->template->load('front-layout/user_default', 'contents', 'frontend/user_view/user_login',$data);
 	}

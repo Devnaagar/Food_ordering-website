@@ -214,4 +214,48 @@ class Food_order extends CI_Model {
         $this->db->update('users', $data);
     }
 
+
+    public function filter_cafe($meal_id) {
+
+        $this->db->where('menu_items.meal_ref', $meal_id);
+        $this->db->select('cafeteria.caf_id, cafeteria.caf_name');
+        $this->db->join('cafeteria', 'menu_items.caf_ref = cafeteria.caf_id');
+        $query = $this->db->get('menu_items');
+        $output="<option value=''> ---</option>";
+        foreach ($query->result() as $row) {
+            $output .="<option value='".$row->caf_id."'>" .$row->caf_name."</option>";
+        }
+        return $output;
+    }
+
+    public function get_food_list($meal_id) {
+        $this->db->where('meal_ref', $meal_id);
+        $this->db->order_by('dish_name','ASC');
+        $query = $this->db->get('menu_items');
+        $output = '';
+        $sno=0;
+        foreach ($query->result() as $row) {
+            $sno+=1;
+            $output .= "<tr class='hov'><td><p>$sno</p></td><td><h5 value='.$row->dish_name.' class='text-danger'>$row->dish_name</h5><input type='hidden' value='.$row->dish_name' id='name_$row->dish_id'/></td><td><p value='$row->price' id='food_price_$row->dish_id'> Rs:$row->price.00</p><input type='hidden' value='$row->price' id='price_$row->dish_id'/></td><td ><input type='number' placeholder='QTY..' class='form-control border_wale' min='0' id='qty_$row->dish_id' onchange='sub_total($row->dish_id)'/></td><td><input id='total_$row->dish_id' class='sub_total form-control border_wale'/></td></tr>";
+        }
+        return $output;
+    }
+
+
+    public function create_address($data) {
+        return $this->db->insert('delivery_address', $data);
+    }
+
+    public function get_address() {
+        $this->db->where('user_id_ref',$this->session->userdata('user_id'));
+        $query = $this->db->get('delivery_address');
+        return $query->result_array();
+        
+    }
+
+
+    public function delete_address($id) {
+        $this->db->where('deli_id', $id);
+        return $this->db->delete('delivery_address');
+    }
 }

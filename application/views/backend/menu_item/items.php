@@ -20,15 +20,15 @@
                         <?php echo validation_errors(); ?>
                         <?php echo form_open('/admin/menu/store_dish_info'); ?>
                             <div class="card-body">
-                                <div class="form-group col-lg-12 ">
-                                    <label for="dish_name" class="mx-3">Dish Name : </label>
-                                    <input type="text" name="dish_name" class="form-control col-lg-12" id="dish_name" placeholder="Enter dish Name" required>
+                                <div class="form-group col-lg-12 d-flex ">
+                                    <label for="dish_name" class="mx-2">Dish Name : </label>
+                                    <input type="text" name="dish_name" class="form-control col-lg-11" id="dish_name" placeholder="Enter dish Name" required>
                                 </div>
                                 <div class="form-group col-lg-12 d-flex">
                                     <label for="price" class="mx-3">Price : </label>
-                                    <input type="text" name="price" class="form-control col-lg-7" id="price" placeholder="Enter price" required>
+                                    <input type="text" name="price" class="form-control col-lg-5" id="price" placeholder="Enter price" required>
                                     <label for="meal" class="mx-3">Meal : &nbsp;</label>
-                                    <select name="meal_id" id="meal" class="form-control col-lg-3" required>
+                                    <select name="meal_id" id="meal" class="form-control col-lg-5" required>
                                         <option value="">select Meal Type</option>
                                         <?php foreach($meals as $meal): ?>
                                             
@@ -53,7 +53,7 @@
                                     
                                     <?php endif; ?>
                                     <label for="cafeteria" class="mx-3">Cafeteria : &nbsp;</label>
-                                        <select name="cafeteria_id" id="cafeteria" class="form-control col-lg-4" required>
+                                        <select name="cafeteria_id" id="cafeteria" class="form-control col-lg-5" required>
                                             <option value="">select cafeteria</option>
                                         </select>
                                 </div>

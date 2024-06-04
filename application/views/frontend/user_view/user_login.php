@@ -1,6 +1,6 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <?php 
     // echo validation_errors();
@@ -8,6 +8,9 @@
 ?>
 
 <style>
+    .container{
+        height: 100%;
+    }
     .account-box
 {
     border: 2px solid rgba(153, 153, 153, 0.75);
@@ -31,9 +34,6 @@
     width: 138px;
     height: 30px;
     text-align: center;
-    /* margin: 10px 0px 27px 40px; */
-    /* background-position: 0px -4px; */
-    /* position: relative; */
 }
 
 .forgotLnk
@@ -86,10 +86,11 @@
 
 
 <!------ Include the above in your HEAD tag ---------->
+<section>
 
     <div class="container">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-8 col-12">
                 <div class="account-box">
                     <div class="row d-flex justify-content-center">
                         <div class="logo ">
@@ -104,20 +105,17 @@
                         <div class="form-group col-lg-12">
                             <input type="password" class="form-control " placeholder="Password" name="password" />
                         </div>
-                        <label class="checkbox col-lg-12">
-                            <input type="checkbox" value="remember-me" />
-                            Keep me signed in
-                        </label>
+                        
                         <button class="btn btn-lg col-md-6  btn-primary sign" type="submit">
                             Sign in</button>
-                    </form>
-                    <br><br>
-                
-                    <div class="or-box row-block">
-                        <h5 class="text-primary">If do'not have account</h5>
+                        </form>
+                        <br><br>
+                        
+                        <div class="or-box row-block">
+                            <h5 class="text-primary">If do'not have account</h5>
                         <div class="row col-lg-12 d-flex justify-content-center">
                             <div class="row-block col-lg-6 d-flex justify-content-center ml-5">
-                                <a href="<?php echo site_url('Authentication/Signup'); ?>" class="btn btn-primary create">Sign Up</a>
+                                <a href="<?php echo site_url('Validate'); ?>" class="btn btn-primary create">Sign Up</a>
                             </div>
                         </div>
                     </div>
@@ -125,3 +123,4 @@
             </div>
         </div>
     </div>
+</section>

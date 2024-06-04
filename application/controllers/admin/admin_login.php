@@ -11,7 +11,7 @@ class Admin_login extends CI_Controller {
         $this->load->library('form_validation');
     }
     
-    public function login() {
+    public function index() {
         $data=array();
 		$this->template->load('admin-layout/admin_front-layout/default_layout', 'contents', 'frontend/admin_login',$data);
         // $this->load->view('admin_login');
@@ -36,11 +36,11 @@ class Admin_login extends CI_Controller {
             
             if ($admin) {
                 $this->session->set_userdata('admin_id', $admin->id);
-                redirect('admin/users/add_user');
+                redirect('admin/dashboard');
             } else {
                 $this->session->set_flashdata('error', 'Invalid login credentials');
             
-                redirect('admin/admin_login/login');
+                redirect('admin');
             }
         }
     }
@@ -48,14 +48,14 @@ class Admin_login extends CI_Controller {
     public function dashboard() {
         
         if (!$this->session->userdata('admin_id')) {
-            redirect('admin/admin_login/login');
+            redirect('admin');
         }
 		$this->template->load('admin-layout/default_layout', 'contents', 'backend/user/add');
     }
     
     public function logout() {
-        $this->session->unset_userdata('admin_id');
-        redirect('admin/admin_login/login');
+        $this->session->sess_destroy();
+        redirect(base_url('admin'));
     }
 }
 ?>

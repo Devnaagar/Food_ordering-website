@@ -73,7 +73,7 @@ $(document).ready(function() {
                 response = JSON.parse(response);
 
                 if (response.success) {
-                    window.location.href = '<?php echo site_url('Authentication/Signup/new_user'); ?>';
+                    window.location.href = '<?php echo site_url('New-Signup'); ?>';
                 } else {
                     $('#alert').removeClass('d-none alert-success').addClass('alert-danger').text(response.message);
                 }

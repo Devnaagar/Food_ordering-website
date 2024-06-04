@@ -52,3 +52,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['login'] = 'authentication/login';
+$route['location'] = 'Authentication/Login/locations';
+$route['Home'] = 'home/Home';
+$route['Validate'] = 'Authentication/Signup';
+$route['Validate-opt'] = 'Authentication/Signup/send_otp';
+$route['Verify-opt'] = 'Authentication/Signup/verify_otp';
+$route['New-Signup'] = 'Authentication/Signup/new_user';
+$route['Booking'] = 'home/Home/book';
+$route['Logout'] = 'home/Home/logout';
+$route['Address'] = 'home/Home/delivery_page';
+
+$route['admin'] = 'admin/admin_login';
+$route['admin/dashboard'] = 'admin/users/add_user';
+$route['admin/dashboard/user_list'] = 'admin/users/lists';
+$route['admin/dashboard/locations'] = 'admin/Locations/location_add';
+$route['admin/dashboard/cafeteria'] = 'admin/cafeteria/cafe_add';
+$route['admin/dashboard/meals'] = 'admin/meals/meal_add';
+$route['admin/dashboard/menu'] = 'admin/menu';
+$route['admin/dashboard/menu_list'] = 'admin/menu/menu_list';
+$route['admin/dashboard/orders'] = 'admin/orders/order_add';
+
+
+
+
+
+
+
+

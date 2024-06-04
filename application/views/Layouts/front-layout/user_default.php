@@ -12,6 +12,7 @@
         }
         .content {
             flex: 1;
+            height: 100%;
         }
         .foot{
             color: aliceblue;
@@ -27,7 +28,7 @@
         <a class="navbar-brand" href="#" >Re-MEAL</a>
     </nav>
 
-    <div class="content d-flex justify-content-center align-items-center">
+    <div class="content ">
     <?php echo $contents; ?>
     </div>
 
