@@ -94,6 +94,7 @@
             <div class="row">
                 <div class="col-lg-12 d-flex justify-content-between">
                     <div class="col-lg-3">
+                        
                         <label for="meals">Choice</label><br>
                         <select class=" choice_sel inputBox " name="meals" id="meals">
                             <option>Select Meal</option>
@@ -115,10 +116,15 @@
                         </select>
                     </div>
                     <div class="col-lg-6">
-                        <label for="locations">Locations</label><br>
-                        <select class="choice_sel" name="locations" id="locations" >
+                        <label for="cafeteria">Cafeteria</label><br>
+                        <select class="choice_sel" name="cafeteria" id="cafeteria" >
                             <option>---</option>
-                        
+                             <?php //print_r($cafeteria);
+                             foreach ($cafeteria as $row) {
+                               echo "<option value='".$row->caf_id."'>" .$row->caf_name."</option>";
+                            }
+                             
+                             ?>
                         </select>
                     </div>
                     
@@ -157,15 +163,20 @@
                                     </tr>
                                 </thead>
                                 <tbody id="food_list">
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div><br>
+                                    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div><br>
+                        <form method="POST" action="<?php echo base_url(); ?>home/Home/add_order_item">
                     <div class="row d-flex justify-content-center mb-5">
                         <div class="col-lg-3">
                             <label for="gtotal">Total : </label>
-                            <input class="gtotal form-control" value="00" id="gtotal"/>
+                            <input class="gtotal form-control" value="00" id="gtotal" name="g_total"/>
+                            <!-- <input name="g_total" value="calculateTotal()" /> -->
+                            <input type="hidden" value="<?php echo $this->session->userdata('user_id'); ?>" name="user_id_ref"/>
+                            <input type="hidden" value="<?php echo $this->session->userdata('user_id').$this->session->userdata('user_name'); ?>" name="order_num"/>
+
                         </div>
                     </div>
                 </div>
@@ -187,38 +198,37 @@
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-lg-12 d-flex justify-content-center bg-light">
-                <button class="btn btn-primary m-3"><a class="link">Order Now</a></button>
+                <button class="btn btn-primary m-3" type="submit"><a class="link">Order Now</a></button>
             </div>
         </div>
     </div>
 </footer>
+</form>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script>
+    
     $(document).ready(function(){
         $("#meals").on('change',function(){
-           
             var meal_id=$('#meals').val();
-             //alert(location_id);
             if(meal_id !=''){
                 $.ajax({
-                    url:"<?php echo base_url();?>home/Home/filter_caf ",
+                    url:"<?php echo base_url();?>home/Home/get_list_menu ",
                     method: "POST",
                     data:{meal_id:meal_id},
                     success:function(data){
-                        $('#locations').html(data);
+                        $('#food_list').html(data);
                     }
                 });
             } else{
-                $('#locations').html('<option value ="">Select locations  </option>');
+                $('#food_list').html('<h3> No DATA</h3>');
             }
         })
     });
     $(document).ready(function(){
         $("#meals").on('change',function(){
-           
             var meal_id=$('#meals').val();
             if(meal_id !=''){
                 $.ajax({
@@ -250,6 +260,16 @@
             $('.sub_total').on('input', calculateTotal);
             calculateTotal();
     }
+    function checkInputValue(dish_id) {
+            var inputBox = document.getElementById('qty_'+dish_id);
+            var checkbox = document.getElementById('checkbox_'+dish_id);
+
+            if (inputBox.value.trim() !== '') {
+                checkbox.checked = true;
+            } else {
+                checkbox.checked = false;
+            }
+        }
 </script>
 
 <script>

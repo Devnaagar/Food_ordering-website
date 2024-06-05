@@ -215,17 +215,12 @@ class Food_order extends CI_Model {
     }
 
 
-    public function filter_cafe($meal_id) {
-
-        $this->db->where('menu_items.meal_ref', $meal_id);
-        $this->db->select('cafeteria.caf_id, cafeteria.caf_name');
-        $this->db->join('cafeteria', 'menu_items.caf_ref = cafeteria.caf_id');
-        $query = $this->db->get('menu_items');
-        $output="<option value=''> ---</option>";
-        foreach ($query->result() as $row) {
-            $output .="<option value='".$row->caf_id."'>" .$row->caf_name."</option>";
-        }
-        return $output;
+    public function filter_cafe($location_id) {
+        $this->db->where('location_ref', $location_id);
+        $this->db->order_by('caf_name', 'DESC');
+        $query = $this->db->get('cafeteria');
+        
+        return $query->result();
     }
 
     public function get_food_list($meal_id) {
@@ -236,7 +231,7 @@ class Food_order extends CI_Model {
         $sno=0;
         foreach ($query->result() as $row) {
             $sno+=1;
-            $output .= "<tr class='hov'><td><p>$sno</p></td><td><h5 value='.$row->dish_name.' class='text-danger'>$row->dish_name</h5><input type='hidden' value='.$row->dish_name' id='name_$row->dish_id'/></td><td><p value='$row->price' id='food_price_$row->dish_id'> Rs:$row->price.00</p><input type='hidden' value='$row->price' id='price_$row->dish_id'/></td><td ><input type='number' placeholder='QTY..' class='form-control border_wale' min='0' id='qty_$row->dish_id' onchange='sub_total($row->dish_id)'/></td><td><input id='total_$row->dish_id' class='sub_total form-control border_wale'/></td></tr>";
+            $output .= "<tr class='hov'><td><input type='checkbox' id='checkbox_$row->dish_id' name='checkbox[]' style='display:none'><p>$sno</p><input type='hidden' value='$row->dish_id' name='dish_id[]'/></td><td><h5 value='.$row->dish_name.' class='text-danger'>$row->dish_name</h5><input type='hidden' value='.$row->dish_name' id='name_$row->dish_id' name='dish_name[]'/></td><td><p value='$row->price' id='food_price_$row->dish_id'> Rs:$row->price.00</p><input type='hidden' value='$row->price' id='price_$row->dish_id' name='dish_rate[]'/></td><td ><input type='number' placeholder='QTY..' class='form-control border_wale' min='0' id='qty_$row->dish_id' onchange='sub_total($row->dish_id); checkInputValue($row->dish_id);' name='dish_qty[]'/></td><td><input id='total_$row->dish_id' class='sub_total form-control border_wale' name='price_dish[]' /></td></tr>";
         }
         return $output;
     }
@@ -257,5 +252,21 @@ class Food_order extends CI_Model {
     public function delete_address($id) {
         $this->db->where('deli_id', $id);
         return $this->db->delete('delivery_address');
+    }
+
+    public function create_order($data) {
+        return $this->db->insert('orders', $data);
+    }
+
+    public function add_dish($orderitem) {
+        return $this->db->insert('order_items', $orderitem);
+    }
+
+    public function get_orderid() {
+        $this->db->select('order_id');
+        $this->db->from('orders');
+        $query = $this->db->get();
+        return $query->result_array();
+        
     }
 }

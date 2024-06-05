@@ -12,6 +12,7 @@ class Login extends CI_Controller {
     }
     
     public function index() {
+        $this->session->sess_destroy();
         $data=array();
 		$this->template->load('front-layout/user_default', 'contents', 'frontend/user_view/user_login',$data);
         // $this->load->view('admin_login');
@@ -77,6 +78,8 @@ class Login extends CI_Controller {
 
     public function locations() {
         $data['locations'] = $this->food_order->get_all_location();
+        // $this->session->set_userdata('', $user['user_id']);
+
 		$this->template->load('front-layout/user_default', 'contents', 'frontend/user_view/location',$data);
 
     }

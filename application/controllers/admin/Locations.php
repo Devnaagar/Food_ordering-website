@@ -25,8 +25,10 @@ class Locations extends CI_Controller {
             $this->load->view('backend/location/add1');
         } else {
             $data = array(
-                'loca_name' => $this->input->post('location') // In a real application, hash the password
+                'loca_name' => $this->input->post('location'), // In a real application, hash the password
+                
             );
+            $this->session->set_userdata('locat_id', $data['id']);
             $this->food_order->create_location($data);
             redirect('/admin/Locations/location_add');
         }
