@@ -6,7 +6,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
-      <span class="brand-text font-weight-light">Re-Meal</span>
+      <span class="brand-text font-weight-light">R-Meal</span>
     </a>
 
 
@@ -16,7 +16,15 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
+
+            <li class="nav-item">
+              <a href="<?php echo base_url(); ?>admin/dashboard" class="nav-link nav-link1">
+                <i class="fa-solid fa-chalkboard-user"></i>
+                <p>DashBoard</p>
+              </a>
+            </li>
             <!-- <ul class="nav nav-treeview"> -->
+
               <li class="nav-item">
                 <a href="<?php echo base_url(); ?>admin/users/lists#" class="nav-link nav-link1">
                   <i class="fa-solid fa-user"></i>
@@ -27,7 +35,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="<?php echo base_url(); ?>admin/dashboard" class="nav-link nav-link2">
+                    <a href="<?php echo base_url(); ?>admin/dashboard/new_user" class="nav-link nav-link2">
                       <i class="fa-solid fa-user-plus"></i>
                       <p>Add New Users</p>
                     </a>

@@ -288,4 +288,34 @@ class Food_order extends CI_Model {
         return $query->result_array();
     }
 
+    public function count_orders_today() {
+        $this->db->where('DATE(order_at)', 'CURDATE()', FALSE);
+        return $this->db->count_all_results('orders');
+    }
+    public function count_orders() {
+        return $this->db->count_all('orders');
+    }
+
+    public function count_users() {
+        return $this->db->count_all('users');
+    }
+
+    public function count_users_today() {
+        $this->db->where('DATE(createdat)', 'CURDATE()', FALSE);
+        return $this->db->count_all_results('users');
+    }
+    public function total_amount_today() {
+        $this->db->select_sum('order_amt');
+        $this->db->where('DATE(order_at)', 'CURDATE()', FALSE);
+        $query = $this->db->get('orders');
+        return $query->row()->order_amt;
+    }
+
+    // Method to get the overall total order amount
+    public function total_amount_overall() {
+        $this->db->select_sum('order_amt');
+        $query = $this->db->get('orders');
+        return $query->row()->order_amt;
+    }
+
 }

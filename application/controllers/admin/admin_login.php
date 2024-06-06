@@ -23,6 +23,7 @@ class Admin_login extends CI_Controller {
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if ($this->form_validation->run() == FALSE) {
+            // die("here");
 		    $this->template->load('admin-layout/admin_front-layout/default_layout', 'contents', 'frontend/admin_login');
         } else {
 
@@ -35,7 +36,9 @@ class Admin_login extends CI_Controller {
             $admin = $this->food_order->check_admin_login($email, $password);
             
             if ($admin) {
-                $this->session->set_userdata('admin_id', $admin->id);
+            // print_r($admin['admin_id']);die;
+
+                $this->session->set_userdata('admin_id', $admin['admin_id']);
                 redirect('admin/dashboard');
             } else {
                 $this->session->set_flashdata('error', 'Invalid login credentials');
@@ -46,11 +49,18 @@ class Admin_login extends CI_Controller {
     }
     
     public function dashboard() {
+        // print_r($this->session->userdata('admin_id'));die;
         
         if (!$this->session->userdata('admin_id')) {
             redirect('admin');
         }
-		$this->template->load('admin-layout/default_layout', 'contents', 'backend/user/add');
+        $data['total_orders_today'] = $this->food_order->count_orders_today();
+        $data['total_orders'] = $this->food_order->count_orders();
+        $data['total_users_today'] = $this->food_order->count_users_today();
+        $data['total_users'] = $this->food_order->count_users();
+        $data['total_amount_today'] = $this->food_order->total_amount_today();
+        $data['total_amount_overall'] = $this->food_order->total_amount_overall();
+		$this->template->load('admin-layout/default_layout', 'contents', 'frontend/dashboard', $data);
     }
     
     public function logout() {
