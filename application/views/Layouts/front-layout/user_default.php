@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Company Name - Login</title>
+    <title>R-MEAL</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
         body {
@@ -16,7 +16,7 @@
         }
         .foot{
             color: aliceblue;
-            height: 90px;
+            height: 80px;
         }
         .texts{
             margin-top: 10px;
@@ -25,7 +25,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#" >Re-MEAL</a>
+        <a class="navbar-brand" href="#" >R-MEAL</a>
     </nav>
 
     <div class="content ">

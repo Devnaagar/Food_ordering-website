@@ -85,7 +85,7 @@ class Food_order extends CI_Model {
 
     public function get_all_meal() {
         $query = $this->db->get('meals');
-        return $query->result_array();
+        return $query->result();
         
     }
 
@@ -223,16 +223,21 @@ class Food_order extends CI_Model {
         return $query->result();
     }
 
-    public function get_food_list($meal_id) {
+    public function get_food_list($meal_id,$cafeteria_id) {
+
         $this->db->where('meal_ref', $meal_id);
+        $this->db->where('caf_ref', $cafeteria_id);
         $this->db->order_by('dish_name','ASC');
+        // die("here");
+
         $query = $this->db->get('menu_items');
         $output = '';
         $sno=0;
         foreach ($query->result() as $row) {
             $sno+=1;
-            $output .= "<tr class='hov'><td><input type='checkbox' id='checkbox_$row->dish_id' name='checkbox[]' style='display:none'><p>$sno</p><input type='hidden' value='$row->dish_id' name='dish_id[]'/></td><td><h5 value='.$row->dish_name.' class='text-danger'>$row->dish_name</h5><input type='hidden' value='.$row->dish_name' id='name_$row->dish_id' name='dish_name[]'/></td><td><p value='$row->price' id='food_price_$row->dish_id'> Rs:$row->price.00</p><input type='hidden' value='$row->price' id='price_$row->dish_id' name='dish_rate[]'/></td><td ><input type='number' placeholder='QTY..' class='form-control border_wale' min='0' id='qty_$row->dish_id' onchange='sub_total($row->dish_id); checkInputValue($row->dish_id);' name='dish_qty[]'/></td><td><input id='total_$row->dish_id' class='sub_total form-control border_wale' name='price_dish[]' /></td></tr>";
+            $output .= "<tr class='hov'><td><input type='checkbox' id='checkbox_$row->dish_id' name='checkbox[]' style='display:none'><p>$sno</p><input type='hidden' value='$row->dish_id' name='dish_id[]'/></td><td><h5 value='$row->dish_name' class='text-danger'>$row->dish_name</h5><input type='hidden' value='$row->dish_name' id='name_$row->dish_id' name='dish_name[]'/></td><td><p value='$row->price' id='food_price_$row->dish_id'> Rs:$row->price.00</p><input type='hidden' value='$row->price' id='price_$row->dish_id' name='dish_rate[]'/></td><td ><input type='number' placeholder='QTY..' class='form-control border_wale' min='0' id='qty_$row->dish_id' onchange='sub_total($row->dish_id); checkInputValue($row->dish_id);' name='dish_qty[]'/></td><td><input id='total_$row->dish_id' class='sub_total form-control border_wale' name='price_dish[]' /></td></tr>";
         }
+        // print_r($output);die;
         return $output;
     }
 
@@ -255,18 +260,32 @@ class Food_order extends CI_Model {
     }
 
     public function create_order($data) {
-        return $this->db->insert('orders', $data);
+        $this->db->insert('orders', $data);
+        return $this->db->insert_id();
     }
 
     public function add_dish($orderitem) {
         return $this->db->insert('order_items', $orderitem);
     }
 
-    public function get_orderid() {
-        $this->db->select('order_id');
+
+    public function get_invoice_address($order_id){
+        $this->db->where('order_id', $order_id);
+        $this->db->select('orders.order_id,orders.order_no,orders.order_amt,orders.order_at,delivery_address.deli_id,delivery_address.user_name,delivery_address.user_mobile,delivery_address.house_no,delivery_address.landmark,delivery_address.street,delivery_address.pincode,locations.loca_name,cafeteria.caf_name,meals.meal_name');
         $this->db->from('orders');
+        $this->db->join('delivery_address', 'orders.user_refer=delivery_address.user_id_ref');
+        $this->db->join('locations', 'orders.loc_id_ref=locations.id');
+        $this->db->join('cafeteria', 'orders.caf_id_ref=cafeteria.caf_id');
+        $this->db->join('meals', 'orders.meal_id_ref=meals.meal_id');
+
         $query = $this->db->get();
-        return $query->result_array();
-        
+        return $query->row_array();
     }
+
+    public function get_invoice_food_list($order_id) {
+        $this->db->where('order_ref', $order_id);
+        $query = $this->db->get('order_items');
+        return $query->result_array();
+    }
+
 }

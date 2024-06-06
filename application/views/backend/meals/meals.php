@@ -75,12 +75,12 @@
                         ?>
                         <tr>
                           <td><?php echo $sno; ?></td>
-                          <td><?php echo $meal['meal_name']; ?></td>
-                          <td><?php echo $meal['createdat']?></td>
-                          <td><?php echo $meal['updatedat']?></td>
+                          <td><?php echo $meal->meal_name; ?></td>
+                          <td><?php echo $meal->createdat?></td>
+                          <td><?php echo $meal->updatedat?></td>
 
                           <td>
-                              <a href="<?php echo site_url('/admin/meals/delete_meal/'.$meal['meal_id']); ?>" class="btn btn-danger">Delete</a>
+                              <a href="<?php echo site_url('/admin/meals/delete_meal/'.$meal->meal_id); ?>" class="btn btn-danger">Delete</a>
                           </td>
                         </tr>
                         <?php endforeach; ?>

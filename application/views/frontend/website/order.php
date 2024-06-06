@@ -1,4 +1,5 @@
 <style>
+    
     .req{
         font-size: 1.5rem;
         color:red;
@@ -45,21 +46,13 @@
     .hidden{
         display: none;
     }
-
-    /* .hov{
-        margin: 10px 2px;
-    }
-    .hov:hover{
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        border-radius: 10px;
-    } */
     .border_wale{
         border: none;
         border-bottom: 2px solid grey;
     }
 </style>
 <br><br><br>
-<section>
+<section >
     <div class="container">
         <div class="row">
             <h3>Booking / View </h3>
@@ -81,6 +74,7 @@
     </div>
 </section><br><br>
 <section>
+    <form method="POST" action="<?php echo base_url(); ?>Confirm-order">
     <div class="container new_book">
         <div class="row">
             <div class="col-lg-12">
@@ -100,7 +94,7 @@
                             <option>Select Meal</option>
                             <?php
                                 foreach($meals as $meal){
-                                    echo '<option value = "'.$meal['meal_id'].'">'.$meal['meal_name'].'</option>'; 
+                                    echo "<option value = '$meal->meal_id'>$meal->meal_name</option>"; 
                                 }
                                 
                                           
@@ -108,8 +102,8 @@
                         </select>
                     </div>
                     <div class="col-lg-2">
-                        <label for="meals">Mode</label><br>
-                        <select class="choice_sel" name="meals" id="meals">
+                        <label for="mode">Mode</label><br>
+                        <select class="choice_sel" name="mode" id="mode">
                             <option>---</option>
                             <option>Online</option>
                             <option>Coupon</option>
@@ -121,7 +115,7 @@
                             <option>---</option>
                              <?php //print_r($cafeteria);
                              foreach ($cafeteria as $row) {
-                               echo "<option value='".$row->caf_id."'>" .$row->caf_name."</option>";
+                               echo "<option value='$row->caf_id'> $row->caf_name</option>";
                             }
                              
                              ?>
@@ -132,13 +126,13 @@
             </div><br><br>
             <div class="row ">
                 <div class="col-lg-12 d-flex justify-content-center">
-                    <button type="submit" class="fetch_all btn btn-primary" onclick="different_calls()" id="toggleButton">
+                    <button type="button" class="fetch_all btn btn-primary" onclick="different_calls()" id="toggleButton">
                         <a class="link" href="#" >Fetch</a>     
                     </button>
                 </div>
             </div>
         <br><br>
-        </form>
+
         <div class="container hidden">
             <div class="row">
                 <div class="col-lg-12">
@@ -168,14 +162,13 @@
                                 </table>
                             </div>
                         </div><br>
-                        <form method="POST" action="<?php echo base_url(); ?>home/Home/add_order_item">
                     <div class="row d-flex justify-content-center mb-5">
                         <div class="col-lg-3">
                             <label for="gtotal">Total : </label>
                             <input class="gtotal form-control" value="00" id="gtotal" name="g_total"/>
                             <!-- <input name="g_total" value="calculateTotal()" /> -->
                             <input type="hidden" value="<?php echo $this->session->userdata('user_id'); ?>" name="user_id_ref"/>
-                            <input type="hidden" value="<?php echo $this->session->userdata('user_id').$this->session->userdata('user_name'); ?>" name="order_num"/>
+                            <input type="hidden" id="order_num" name="order_num"/>
 
                         </div>
                     </div>
@@ -198,7 +191,7 @@
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-lg-12 d-flex justify-content-center bg-light">
-                <button class="btn btn-primary m-3" type="submit"><a class="link">Order Now</a></button>
+                <button class="btn btn-primary m-3" type="submit" onclick="generateRandomString()"><a class="link">Order Now</a></button>
             </div>
         </div>
     </div>
@@ -211,30 +204,14 @@
 <script>
     
     $(document).ready(function(){
-        $("#meals").on('change',function(){
+        $("#cafeteria").on('change',function(){
             var meal_id=$('#meals').val();
-            if(meal_id !=''){
+            var cafeteria_id = $('#cafeteria').val();
+            if(meal_id !='' && cafeteria_id!=''){
                 $.ajax({
                     url:"<?php echo base_url();?>home/Home/get_list_menu ",
                     method: "POST",
-                    data:{meal_id:meal_id},
-                    success:function(data){
-                        $('#food_list').html(data);
-                    }
-                });
-            } else{
-                $('#food_list').html('<h3> No DATA</h3>');
-            }
-        })
-    });
-    $(document).ready(function(){
-        $("#meals").on('change',function(){
-            var meal_id=$('#meals').val();
-            if(meal_id !=''){
-                $.ajax({
-                    url:"<?php echo base_url();?>home/Home/get_list_menu ",
-                    method: "POST",
-                    data:{meal_id:meal_id},
+                    data:{meal_id:meal_id ,cafeteria_id: cafeteria_id},
                     success:function(data){
                         $('#food_list').html(data);
                     }
@@ -261,14 +238,24 @@
             calculateTotal();
     }
     function checkInputValue(dish_id) {
-            var inputBox = document.getElementById('qty_'+dish_id);
-            var checkbox = document.getElementById('checkbox_'+dish_id);
-
-            if (inputBox.value.trim() !== '') {
+            var qty = document.getElementById('qty_' + dish_id).value;
+            var checkbox = document.getElementById('checkbox_' + dish_id);
+            if (qty > 0) {
                 checkbox.checked = true;
+                checkbox.style.display = 'none';
             } else {
                 checkbox.checked = false;
+                checkbox.style.display = 'none';
             }
+        }
+        function generateRandomString() {
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            var result = '';
+            for (var i = 0; i < 8; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            document.getElementById('order_num').value = result;
         }
 </script>
 

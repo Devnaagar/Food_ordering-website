@@ -45,4 +45,13 @@ class Orders extends CI_Controller {
 	    redirect('/admin/orders/order_add');
     }
 
+    public function invoice_page($order_id){
+        // $data['address']=$this->food_order->get_address();
+        $data['information']=$this->food_order->get_invoice_address($order_id);
+        $data['foods']= $this->food_order->get_invoice_food_list($order_id);
+        // $this->template->load('front-layout/defualt_layout_2', 'contents', 'frontend/website/',$data);
+		$this->template->load('admin-layout/default_layout', 'contents', 'backend/orders/invoice',$data);
+
+    }
+
 }
