@@ -32,7 +32,7 @@
                                         <option value="">select Meal Type</option>
                                         <?php foreach($meals as $meal): ?>
                                             
-                                                <option value="<?php echo $meal['meal_id']; ?>"><?php echo $meal['meal_name']; ?></option>
+                                                <option value="<?php echo $meal->meal_id; ?>"><?php echo $meal->meal_name; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

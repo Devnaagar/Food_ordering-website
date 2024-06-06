@@ -63,6 +63,7 @@ $route['New-Signup'] = 'Authentication/Signup/new_user';
 $route['Booking'] = 'home/Home/book';
 $route['Logout'] = 'home/Home/logout';
 $route['Address'] = 'home/Home/delivery_page';
+$route['Confirm-order'] = 'home/Home/add_order_item';
 
 $route['admin'] = 'admin/admin_login';
 $route['admin/dashboard'] = 'admin/users/add_user';
@@ -73,7 +74,6 @@ $route['admin/dashboard/meals'] = 'admin/meals/meal_add';
 $route['admin/dashboard/menu'] = 'admin/menu';
 $route['admin/dashboard/menu_list'] = 'admin/menu/menu_list';
 $route['admin/dashboard/orders'] = 'admin/orders/order_add';
-
 
 
 

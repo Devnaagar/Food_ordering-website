@@ -61,7 +61,7 @@
 
 </style>
 
-
+<br><br><br>
 <div class="container">
     <div class="row d-flex justify-content-center">
         <div class="col-md-6 ">
@@ -72,11 +72,13 @@
                     </div>
                 </div>
                <br>
-                <form class="form-signin" action="<?php echo site_url('Home'); ?>" method="post">
-                    <div class="form-group col-lg-12">
-                        <select name="location_ref" id="location" class="form-control col-lg-12">
-                            <?php foreach($locations as $location): ?>
+               <form class="form-signin" action="<?php echo site_url('Home') ?>" method="post">
+               <div class="form-group col-lg-12">
+                   <select name="location_ref" id="location" class="form-control col-lg-12">
+                       <?php foreach($locations as $location): ?>
                                 <option value="<?php echo $location['id']; ?>"><?php echo $location['Loca_name']; ?></option>
+            
+                                <!-- <?php //$location_sess =$this->session->set_userdata('locat_id', $location['id']);?> -->
                             <?php endforeach; ?>
                         </select>
                     </div>

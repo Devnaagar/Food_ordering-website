@@ -19,13 +19,15 @@ class Locations extends CI_Controller {
 
     // Handle form submission and create a new user
     public function store_locat() {
+        
         $this->form_validation->set_rules('location', 'Loca_name', 'required');
 
         if ($this->form_validation->run() === FALSE) {
             $this->load->view('backend/location/add1');
         } else {
             $data = array(
-                'loca_name' => $this->input->post('location') // In a real application, hash the password
+                'loca_name' => $this->input->post('location'), // In a real application, hash the password
+                
             );
             $this->food_order->create_location($data);
             redirect('/admin/Locations/location_add');

@@ -50,7 +50,7 @@
                                             <td><?php echo $order['order_at']?></td>
                                             <td>
                                                 <a href="<?php echo site_url('/admin/orders/delete_order/'.$order['order_id']); ?>" class="btn btn-danger">Delete</a>
-                                                <a href="<?php echo site_url('/admin/orders/veiw_items/'.$order['order_id']); ?>" class="btn btn-outline-success">Items</a>
+                                                <a href="<?php echo site_url('/admin/orders/invoice_page/'.$order['order_id']); ?>" class="btn btn-outline-success">Items</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
