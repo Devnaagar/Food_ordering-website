@@ -18,10 +18,14 @@
   } */
 
   .right{
-    text-align: end;
+    /* text-align: end; */
+    margin-top: 5px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
   }
   .right::before{
-    margin-right: 0px;
+    /* margin-right: 0px; */
     font-size: 15px;
 
 }
