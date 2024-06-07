@@ -4,12 +4,6 @@
 ?>
 
 <style>
-    @media (max-width: 420px) {
-      .loca{
-
-      }
-      
-    }
 
 
 </style>
@@ -32,15 +26,15 @@
                         <?php echo form_open('/admin/cafeteria/store_cafe'); ?>
                             <div class="card-body">
                                 <div class="form-group col-lg-12 d-flex flex-wrap">
-                                    <label for="location">Locations:&nbsp;</label>
-                                    <select name="location_ref" id="location" class="form-control col-lg-3">
+                                    <label for="location" class="mx-3">Locations:&nbsp;</label>
+                                    <select name="location_ref" id="location" class="form-control col-lg-2">
                                         <?php foreach($locations as $location): ?>
                                             <option value="<?php echo $location['id']; ?>"><?php echo $location['Loca_name']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                     
-                                    <label for="cafeteria_name" class="mx-3 loca">Cafeteria Name: </label>
-                                    <input type="text" name="caf_name" class="form-control col-lg-6" id="cafeteria_name" placeholder="Enter Cafeteria Name">
+                                    <label for="cafeteria_name" class="mx-3 loca">Cafeteria Name:</label>
+                                    <input type="text" name="caf_name" class="form-control col-lg-7" id="cafeteria_name" placeholder="Enter Cafeteria Name">
                                     
                                 </div>
                                 <div class="card-footer d-flex justify-content-center align-items-center">

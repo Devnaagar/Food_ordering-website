@@ -15,7 +15,7 @@
           <div class="col-md-12">
             <div class="card card-primary">
               <div class="card-body">
-                <div class="row">
+                <!-- <div class="row"> -->
                 <div class="table-responsive-sm">
                   <table class="table table-bordered">
                       <thead>
@@ -60,7 +60,7 @@
                     </table>
                 </div>
                   
-                </div>
+                <!-- </div> -->
                 
               </div>
             </div>
