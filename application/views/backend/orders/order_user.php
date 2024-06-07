@@ -51,7 +51,7 @@
                                                 <td><?php echo $order['order_at']?></td>
                                                 <td class="d-flex justify-content-around">
                                                     <a href="<?php echo site_url('/admin/orders/delete_order/'.$order['order_id']); ?>" class="btn btn-danger">Delete</a>
-                                                    <a href="<?php echo site_url('/admin/orders/invoice_page/'.$order['order_id']); ?>" class="btn btn-outline-success">Items</a>
+                                                    <a href="<?php echo site_url('/admin/orders/invoice_page/'.$order['order_id']); ?>" class="btn btn-outline-success">View</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

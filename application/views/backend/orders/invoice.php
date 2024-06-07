@@ -62,11 +62,11 @@
                         </div>
                         <div class="card-header">
                             <div class="row d-flex justify-content-between">
-                                <h6><b>Invoice no :</b> <?php echo $information['order_id'];?></h6>
+                                <h6><b>Order ID :</b> <?php echo $information['order_id'];?></h6>
                                 <h6><b>Invoice Date/Time :</b> <?php echo $information['order_at'];?></h6>
                             </div><br>
                             <div class="row d-flex justify-content-center">
-                                <h1 class="text-center"><u>Invoice</u></h1>
+                                <h1 class="text-center"><u>Order Summary</u></h1>
                             </div>
                         </div>
                         

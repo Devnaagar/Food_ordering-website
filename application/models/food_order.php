@@ -277,9 +277,10 @@ class Food_order extends CI_Model {
         $this->db->join('locations', 'orders.loc_id_ref=locations.id');
         $this->db->join('cafeteria', 'orders.caf_id_ref=cafeteria.caf_id');
         $this->db->join('meals', 'orders.meal_id_ref=meals.meal_id');
-
         $query = $this->db->get();
         return $query->row_array();
+        // print_r($query);die;
+
     }
 
     public function get_invoice_food_list($order_id) {
