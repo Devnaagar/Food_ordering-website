@@ -20,47 +20,51 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th style="width: 10px">S.NO.</th>
-                                    <th>Order No.</th>
-                                    <th>Order Amount</th>
-                                    <th>user ID</th>
-                                    <th>User Name</th>
-                                    <th>Ordered At</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if(!empty($orders)): ?>
-                                    <?php 
-                                    $sno=0;
-                                    ?>
-                                    <?php
-                                        foreach ($orders as $order):
-                                        $sno+=1;
-                                    ?>
-                                        <tr>
-                                            <td><?php echo $sno; ?></td>
-                                            <td><?php echo $order['order_no']; ?></td>
-                                            <td><?php echo $order['order_amt']?></td>
-                                            <td><?php echo $order['user_id']?></td>
-                                            <td><?php echo $order['name']?></td>
-                                            <td><?php echo $order['order_at']?></td>
-                                            <td>
-                                                <a href="<?php echo site_url('/admin/orders/delete_order/'.$order['order_id']); ?>" class="btn btn-danger">Delete</a>
-                                                <a href="<?php echo site_url('/admin/orders/invoice_page/'.$order['order_id']); ?>" class="btn btn-outline-success">Items</a>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
+                        <div class="table-responsive-sm">
+                            <table class="table table-bordered">
+                                <thead>
                                     <tr>
-                                        <td colspan="7" class="text-center">No users found.</td>
+                                        <th style="width: 10px">S.NO.</th>
+                                        <th>Order No.</th>
+                                        <th>Order Amount</th>
+                                        <th>user ID</th>
+                                        <th>User Name</th>
+                                        <th>Ordered At</th>
+                                        <th>Actions</th>
                                     </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php if(!empty($orders)): ?>
+                                        <?php 
+                                        $sno=0;
+                                        ?>
+                                        <?php
+                                            foreach ($orders as $order):
+                                            $sno+=1;
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $sno; ?></td>
+                                                <td><?php echo $order['order_no']; ?></td>
+                                                <td><?php echo $order['order_amt']?></td>
+                                                <td><?php echo $order['user_id']?></td>
+                                                <td><?php echo $order['name']?></td>
+                                                <td><?php echo $order['order_at']?></td>
+                                                <td>
+                                                    <a href="<?php echo site_url('/admin/orders/delete_order/'.$order['order_id']); ?>" class="btn btn-danger">Delete</a>
+                                                    <a href="<?php echo site_url('/admin/orders/invoice_page/'.$order['order_id']); ?>" class="btn btn-outline-success">Items</a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="7" class="text-center">No users found.</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        
                     </div>
                     <div class="card-footer clearfix">
                         <ul class="pagination pagination-sm m-0 float-right">

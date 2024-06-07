@@ -20,14 +20,13 @@
                         <?php echo validation_errors(); ?>
                         <?php echo form_open('/admin/meals/store_meal'); ?>
                             <div class="card-body">
-                                <div class="form-group col-lg-12 d-flex">
-                                    <label for="meal_name" class="mx-3">Meal Type : </label>
-                                    <input type="text" name="meal_name" class="form-control col-lg-10" id="meal_name" placeholder="Enter meal-Type">
-                                    <div class="card-footer d-flex justify-content-center p-0 ml-3">
-                                        <button type="submit" class="btn btn-primary" value="Create meal" name="submit">Save</button>
-                                    </div>
-                                </div>
-                                
+                                <div class="form-group col-lg-12 d-flex flex-wrap">
+                                    <label for="meal_name" class="mx-2">Meal Type: </label>
+                                    <input type="text" name="meal_name" class="form-control col-lg-11" id="meal_name" placeholder="Enter meal-Type">  
+                                </div>  
+                            </div>
+                            <div class="card-footer d-flex justify-content-center p-0 mb-2">
+                                <button type="submit" class="btn btn-primary" value="Create meal" name="submit">Save</button>
                             </div>
                         </form>
                     </div>
@@ -53,6 +52,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-body">
+              <div class="table-responsive-sm">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
@@ -91,6 +91,8 @@
                     <?php endif; ?>
                   </tbody>
                 </table>
+              </div>
+                
               </div>
             </div>
                       

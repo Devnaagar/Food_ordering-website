@@ -3,6 +3,17 @@
    // echo "<pre>";print_r($cafeteria);die;
 ?>
 
+<style>
+    @media (max-width: 420px) {
+      .loca{
+
+      }
+      
+    }
+
+
+</style>
+
 <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -20,15 +31,15 @@
                         <?php echo validation_errors(); ?>
                         <?php echo form_open('/admin/cafeteria/store_cafe'); ?>
                             <div class="card-body">
-                                <div class="form-group col-lg-12 d-flex">
-                                    <label for="location">Locations : &nbsp;</label>
-                                        <select name="location_ref" id="location" class="form-control col-lg-3">
-                                            <?php foreach($locations as $location): ?>
-                                                <option value="<?php echo $location['id']; ?>"><?php echo $location['Loca_name']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
+                                <div class="form-group col-lg-12 d-flex flex-wrap">
+                                    <label for="location">Locations:&nbsp;</label>
+                                    <select name="location_ref" id="location" class="form-control col-lg-3">
+                                        <?php foreach($locations as $location): ?>
+                                            <option value="<?php echo $location['id']; ?>"><?php echo $location['Loca_name']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                     
-                                    <label for="cafeteria_name" class="mx-3">Cafeteria Name : </label>
+                                    <label for="cafeteria_name" class="mx-3 loca">Cafeteria Name: </label>
                                     <input type="text" name="caf_name" class="form-control col-lg-6" id="cafeteria_name" placeholder="Enter Cafeteria Name">
                                     
                                 </div>
@@ -60,6 +71,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-body">
+              <div class="table-responsive-sm">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
@@ -100,6 +112,9 @@
                     <?php endif; ?>
                   </tbody>
                 </table>
+              </div>
+
+                
               </div>
             </div>
                       

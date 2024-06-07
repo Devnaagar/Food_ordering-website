@@ -50,6 +50,15 @@
         border: none;
         border-bottom: 2px solid grey;
     }
+
+    @media (max-width:480px){
+        .fixed-bottom{
+            width:100vw;
+        }
+        .price_col{
+            width: 70px;
+        }
+    }
 </style>
 <br><br><br>
 <section >
@@ -86,8 +95,8 @@
             </div>
         </div><br>
             <div class="row">
-                <div class="col-lg-12 d-flex justify-content-between">
-                    <div class="col-lg-3">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-3">
                         
                         <label for="meals">Choice</label><br>
                         <select class=" choice_sel inputBox " name="meals" id="meals">
@@ -101,7 +110,7 @@
                             ?>
                         </select>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2">
                         <label for="mode">Mode</label><br>
                         <select class="choice_sel" name="mode" id="mode">
                             <option>---</option>
@@ -109,7 +118,7 @@
                             <option>Coupon</option>
                         </select>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                         <label for="cafeteria">Cafeteria</label><br>
                         <select class="choice_sel" name="cafeteria" id="cafeteria" >
                             <option>---</option>
@@ -146,14 +155,15 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
+                        <div class="table-responsive-sm">
                             <table class="table">
                                 <thead >
                                     <tr>
-                                        <th class="col-lg-1">S.NO.</th>
-                                        <th class="col-lg-4"><em>Name</em></th>
-                                        <th class="col-lg-2"><em>Rate</em></th>
-                                        <th class="col-lg-2"><em>Quantity</em></th>
-                                        <th class="col-lg-2"><em>Price</em></th>
+                                        <th class="col-lg-1 col-md-1 col-sm-1 col-1">S.NO.</th>
+                                        <th class="col-lg-4 col-md-4 col-sm-4 col-4"><em>Name</em></th>
+                                        <th class="col-lg-2 col-md-2 col-sm-2 col-2"><em>Rate</em></th>
+                                        <th class="col-lg-2 col-md-2 col-sm-2 col-2"><em>Quantity</em></th>
+                                        <th class="col-lg-2 col-md-3 col-sm-3 col-3 price_col"><em>Price</em></th>
                                     </tr>
                                 </thead>
                                 <tbody id="food_list">
@@ -161,6 +171,8 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                            
                         </div><br>
                     <div class="row d-flex justify-content-center mb-5">
                         <div class="col-lg-3">
@@ -190,7 +202,7 @@
 <footer class="fixed-bottom bg-light">
     <div class="container">
         <div class="row d-flex justify-content-center">
-            <div class="col-lg-12 d-flex justify-content-center bg-light">
+            <div class="col-lg-12 col-md-6 d-flex justify-content-center bg-light">
                 <button class="btn btn-primary m-3" type="submit" onclick="generateRandomString()"><a class="link">Order Now</a></button>
             </div>
         </div>

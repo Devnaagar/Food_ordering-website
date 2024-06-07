@@ -18,7 +18,7 @@
                             </div> 
                             <div class="form-group">
                                 <label for="mobile_number">Mobile</label>
-                                <input type="mobile" name="mobile_number" class="form-control" id="mobile_number" value="<?php echo $mobile_number?>" required>
+                                <input type="mobile" name="mobile_number" class="form-control" id="mobile_number" value="<?php echo $mobile_number ?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="Password">Password</label>

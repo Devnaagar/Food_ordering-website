@@ -19,6 +19,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-body">
+              <div class="table-responsive-sm">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
@@ -64,6 +65,8 @@
                     <?php endif; ?>
                   </tbody>
                 </table>
+              </div>
+                
               </div>
             </div>
                       
