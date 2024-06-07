@@ -15,8 +15,9 @@ class Home extends CI_Controller {
     }
     public function index(){
         $data=array();
-        $post = $this->input->post();
-        $this->session->set_userdata('location_ref',$post['location_ref']);
+        // $post = $this->input->post();
+        $this->session->set_userdata('location_ref',$this->input->post('location_ref'));
+        $data['location_id'] =$this->session->userdata('location_ref');
         // print_r($this->session->userdata('location_ref'));die;
 		$this->template->load('front-layout/defualt_layout_2', 'contents', 'frontend/website/home', $data);
     }
@@ -27,7 +28,7 @@ class Home extends CI_Controller {
         if($location_id){
             $cafeteria = $this->food_order->filter_cafe($location_id);
         }
-        $data['cafeteria'] = $cafeteria;
+        $data['cafeteria'] = $this->food_order->filter_cafe($location_id);
 		$this->template->load('front-layout/defualt_layout_2', 'contents', 'frontend/website/order',$data);
 
     }
@@ -170,12 +171,7 @@ class Home extends CI_Controller {
         }
     }
 
-    public function invoice_page($order_id){
-        // $data['address']=$this->food_order->get_address();
-        $data['information']=$this->food_order->get_invoice_address($order_id);
-        $data['foods']= $this->food_order->get_invoice_food_list($order_id);
-        $this->template->load('front-layout/defualt_layout_2', 'contents', 'frontend/website/invoice',$data);
-    }
+    
 }
 
 ?>

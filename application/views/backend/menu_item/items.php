@@ -19,16 +19,16 @@
                     <div class="card card-primary">
                         <?php echo validation_errors(); ?>
                         <?php echo form_open('/admin/menu/store_dish_info'); ?>
-                            <div class="card-body">
-                                <div class="form-group col-lg-12 d-flex ">
-                                    <label for="dish_name" class="mx-2">Dish Name : </label>
+                            <div class="card-body ">
+                                <div class="form-group col-lg-12 d-flex flex-wrap">
+                                    <label for="dish_name" class="mx-2">Dish Name: </label>
                                     <input type="text" name="dish_name" class="form-control col-lg-11" id="dish_name" placeholder="Enter dish Name" required>
                                 </div>
-                                <div class="form-group col-lg-12 d-flex">
-                                    <label for="price" class="mx-3">Price : </label>
+                                <div class="form-group col-lg-12 d-flex flex-wrap">
+                                    <label for="price" class="mr-1">Price: </label>
                                     <input type="text" name="price" class="form-control col-lg-5" id="price" placeholder="Enter price" required>
-                                    <label for="meal" class="mx-3">Meal : &nbsp;</label>
-                                    <select name="meal_id" id="meal" class="form-control col-lg-5" required>
+                                    <label for="meal" class="ml-2">Meal: &nbsp;</label>
+                                    <select name="meal_id" id="meal" class="form-control col-lg-6" required>
                                         <option value="">select Meal Type</option>
                                         <?php foreach($meals as $meal): ?>
                                             
@@ -36,11 +36,11 @@
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                                <div class="form-group col-lg-12 d-flex">
+                                <div class="form-group col-lg-12 d-flex flex-wrap">
                                     
-                                    <label for="location" class="mx-3">Locations : &nbsp;</label>
+                                    <label for="location" class="mx-2">Locations: &nbsp;</label>
                                     <?php if(!empty($location)): ?>
-                                    <select name="location_id" id="location" class="form-control col-lg-4" required>
+                                    <select name="location_id" id="location" class="form-control col-lg-5" required>
                                         <option value="">select location</option>
                                         <?php 
                                             foreach($location as $row){
@@ -52,7 +52,7 @@
                                         <p>No users found.</p>
                                     
                                     <?php endif; ?>
-                                    <label for="cafeteria" class="mx-3">Cafeteria : &nbsp;</label>
+                                    <label for="cafeteria" class="mx-2">Cafeteria: &nbsp;</label>
                                         <select name="cafeteria_id" id="cafeteria" class="form-control col-lg-5" required>
                                             <option value="">select cafeteria</option>
                                         </select>

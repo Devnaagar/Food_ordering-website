@@ -8,7 +8,6 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -33,13 +32,13 @@
 <div class="wrapper">
     <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="<?php echo base_url(); ?>assets/admin/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="<?php echo base_url(); ?>assets/admin/dist/img/geetalogo.png" alt="AdminLTELogo" height="60" width="60">
   </div>
     <?php $this->load->view('Layouts/admin-layout/header'); ?>
     <?php $this->load->view('Layouts/admin-layout/sidebar'); ?>
     <div class="content-wrapper">
-    <?php echo $contents; ?>
-    </div>
+      <?php echo $contents; ?>
+    </div><br>
     <?php $this->load->view('Layouts/admin-layout/footer'); ?>
 </div>
     <!-- jQuery -->

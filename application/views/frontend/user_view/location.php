@@ -64,11 +64,11 @@
 <br><br><br>
 <div class="container">
     <div class="row d-flex justify-content-center">
-        <div class="col-md-6 ">
+        <div class="col-md-12 col-lg-12 ">
             <div class="account-box">
                 <div class="row d-flex justify-content-center">
                     <div class="logo ">
-                        <h4 class="m-0">Select your location</h4>
+                        <h3 class="m-0">Select your location</h3>
                     </div>
                 </div>
                <br>

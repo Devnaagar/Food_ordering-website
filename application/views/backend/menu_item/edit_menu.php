@@ -21,21 +21,21 @@
                         <?php echo validation_errors(); ?>
                         <?php echo form_open('admin/menu/update_menu/'.$item['dish_id']); ?>
                             <div class="card-body">
-                                <div class="form-group col-lg-12 d-flex">
+                                <div class="form-group col-lg-12 d-flex flex-wrap">
                                     <label for="dish_name" class="mx-3">Dish Name : </label>
                                     <input type="text" name="dish_name" class="form-control col-lg-5" id="dish_name" value="<?php echo set_value('dish_name', $item['dish_name']); ?>" required>
                                     <label for="price" class="mx-3">Price : </label>
                                     <input type="text" name="price" class="form-control col-lg-5" id="price" value="<?php echo set_value('price', $item['price']); ?>" required>
                                 </div>
-                                <div class="form-group col-lg-12 d-flex">
-                                <label for="meal" class="mx-3">Meal : &nbsp;</label>
+                                <div class="form-group col-lg-12 d-flex flex-wrap">
+                                <label for="meal" class="mx-3">Meal: &nbsp;</label>
                                 <select name="meal_id" id="meal" class="form-control col-lg-3" required>
                                     <option value="">select Meal</option>
                                     <?php foreach($meals as $meal): ?>
-                                            <option value="<?php echo $meal['meal_id']; ?>"><?php echo $meal['meal_name']; ?></option>
+                                            <option value="<?php echo $meal->meal_id; ?>"><?php echo $meal->meal_name; ?></option>
                                     <?php endforeach; ?>
                                         </select>
-                                    <label for="location" class="mx-3">Locations : &nbsp;</label>
+                                    <label for="location" class="mx-3">Locations: &nbsp;</label>
                                     <?php if(!empty($location)): ?>
                                     <select name="location_id" id="location" class="form-control col-lg-3" required>
                                         <option value="" >select location</option>
@@ -49,7 +49,7 @@
                                         <p>No users found.</p>
                                     
                                     <?php endif; ?>
-                                    <label for="cafeteria" class="mx-3">Cafeteria : &nbsp;</label>
+                                    <label for="cafeteria" class="mx-3">Cafeteria: &nbsp;</label>
                                         <select name="cafeteria_id" id="cafeteria" class="form-control col-lg-3" required>
                                             <option value="">select cafeteria</option>
                                         </select>

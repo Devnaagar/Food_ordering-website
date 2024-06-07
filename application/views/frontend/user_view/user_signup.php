@@ -1,17 +1,31 @@
+<style>
+    @media (max-width: 480px){
 
+        .section{
+            height: 75vh;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    
+
+</style>
 
 <br><br><br>
-<section class="content">
-    <div class="container-fluid">
+<section>
+    <div class="container">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-6 d-flex justify-content-center">
+            <!-- <div class="col-md-12 d-flex justify-content-center"> -->
                 <?php echo validation_errors(); ?> 
-                <div class="col-md-6 border border-3 ">
+                <div class="col-lg-6 col-md-8 border border-3 ">
                     <h2 class="text-center my-4">Sign Up</h2>
                     <div id="alert" class="alert d-none"></div>
                     <form id="mobileForm" class="d-flex flex-column align-items-center">
                         <div class="form-group w-100">
-                            <label for="mobile_number">Mobile Number</label>
+                            <label for="mobile_number"><h5>Mobile Number</h5></label>
                             <input type="text" class="form-control mb-3" id="mobile_number" name="mobile_number" required>
                         </div>
                         <button type="button" id="sendOtpBtn" class="btn btn-primary  mb-5">Send OTP</button>
@@ -27,7 +41,7 @@
                         <button type="button" id="resendOtpBtn" class="btn btn-secondary btn-block d-none mb-5">Resend OTP</button>
                     </form>
                 </div>
-            </div>
+            <!-- </div> -->
         </div>
     </div>
 </section>

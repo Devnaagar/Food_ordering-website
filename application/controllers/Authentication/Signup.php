@@ -76,7 +76,6 @@ public function verify_otp() {
         $mobile_number['mobile_number'] = $this->session->userdata('mobile_number');
 		$this->template->load('front-layout/user_default', 'contents', 'frontend/user_view/new_signup',$mobile_number);
 
-
     }
 
 	public function add_new_user()
@@ -91,7 +90,7 @@ public function verify_otp() {
 		} else {
             $data = array(
 				'name' => $this->input->post('fullname'),
-				'mobile' => $this->input->post('mobile_number'),
+				'mobile' =>  $mobile_number,
 				'password' => $this->input->post('password')
 			);
 

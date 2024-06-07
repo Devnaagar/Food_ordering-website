@@ -10,19 +10,15 @@
     width: 40px;
     margin-left: 5px;
     margin-right: 10px;
-    /* text-align: end; */
-
+    /* text-align: end;*/
 }
+
 
 .nav-link2 i{
     margin-right: 10px;
 }
 
-.right{
-    text-align: end;
-    margin-right: 0px;
 
-}
 
 
 .save{
