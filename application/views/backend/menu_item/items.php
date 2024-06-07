@@ -28,7 +28,7 @@
                                     <label for="price" class="mr-1">Price: </label>
                                     <input type="text" name="price" class="form-control col-lg-5" id="price" placeholder="Enter price" required>
                                     <label for="meal" class="ml-2">Meal: &nbsp;</label>
-                                    <select name="meal_id" id="meal" class="form-control col-lg-6" required>
+                                    <select name="meal_id" id="meal" class="form-control col-lg-5" required>
                                         <option value="">select Meal Type</option>
                                         <?php foreach($meals as $meal): ?>
                                             

@@ -17,8 +17,10 @@
     color: darkgray;
   } */
 
-  .right::before{
+  .right{
     text-align: end;
+  }
+  .right::before{
     margin-right: 0px;
     font-size: 15px;
 
