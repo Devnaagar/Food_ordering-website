@@ -45,7 +45,7 @@
                               <td><?php echo $user['password']; ?></td>
                               <td><?php echo $user['createdat']?></td>
                               <td><?php echo $user['updatedat']?></td>
-                              <td>
+                              <td class="d-flex justify-content-between">
                                   <a href="<?php echo site_url('/admin/Users/edit/'.$user['user_id']); ?>" class="btn btn-warning">Edit</a>
                                   <a href="<?php echo site_url('/admin/Users/delete/'.$user['user_id']); ?>" class="btn btn-danger">Delete</a>
                               </td>
