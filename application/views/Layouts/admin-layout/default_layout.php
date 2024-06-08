@@ -36,7 +36,9 @@
   </div>
     <?php $this->load->view('Layouts/admin-layout/header'); ?>
     <?php $this->load->view('Layouts/admin-layout/sidebar'); ?>
+    
     <div class="content-wrapper">
+      
       <?php echo $contents; ?>
     </div><br>
     <?php $this->load->view('Layouts/admin-layout/footer'); ?>

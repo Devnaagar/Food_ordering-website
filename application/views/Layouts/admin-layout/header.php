@@ -11,7 +11,7 @@
       <!-- Navbar Search -->
       <li class="nav-item">
         <!-- <button class="btn btn-outline-primary" type="submit">LogIn</button> -->
-        <button class="btn btn-outline-primary" type="button"> <a href="<?php echo site_url('admin/admin_login/logout'); ?>">LogOut</a></button>
+        <button class="btn btn-outline-primary" type="button"> <a href="<?php echo site_url('admin/admin_login/logout'); ?>">Logout</a></button>
       </li>
 
     </ul>

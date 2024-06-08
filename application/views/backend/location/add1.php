@@ -54,7 +54,6 @@
                       <th style="width: 10px">S.NO.</th>
                       <th>Locations</th>
                       <th>Createdat</th>
-                      <th>Updatedat</th>
                       <th>Actions</th>
                       
                     </tr>
@@ -71,7 +70,6 @@
                           <td><?php echo "$sno"; ?></td>
                           <td><?php echo $location['Loca_name']; ?></td>
                           <td><?php echo $location['createdat']?></td>
-                          <td><?php echo $location['updatedat']?></td>
                           <td>
                               <a href="<?php echo site_url('/admin/Locations/delete_locat/'.$location['id']); ?>" class="btn btn-danger">Delete</a>
                           </td>
@@ -90,15 +88,6 @@
             </div>
                       
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                </ul>
-              </div>
             </div>
             <!-- /.card -->
 

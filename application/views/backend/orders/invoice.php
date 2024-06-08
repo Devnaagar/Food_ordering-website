@@ -25,16 +25,6 @@
         /* border:3px solid black; */
     }
 
-    .watermark {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 50px;
-        opacity: 0.1;
-        z-index: 0;
-        pointer-events: none;
-    }
 
     .card-header, .card-body, .card-footer {
         position: relative;
@@ -44,22 +34,31 @@
     .table-bordered{
         /* border:2px solid black; */
     }
+    .card-header::after{
+        display: none;
+    }
+    @media (max-width:480px){
+        
+        .sub_gap{
+            padding: 10px;
+        }
+        .sub_gap1{
+            margin: 7px;
+        }
+    }
 
 
 </style>
 <br><br><br>
 <?php
-//    echo "<pre>";print_r($information);die;
+   //echo "<pre>";print_r($status);die;
 ?>
 <section>
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-9">
                 <div class="card card-primary">
                     <div class="bordered"> 
-                        <div class="watermark">
-                            <img  src="<?php echo base_url(); ?>assets/admin/dist/img/geetalogo.png" alt="AdminLTELogo" height="400" width="400">
-                        </div>
                         <div class="card-header">
                             <div class="row d-flex justify-content-between">
                                 <h6><b>Order ID :</b> <?php echo $information['order_id'];?></h6>
@@ -73,25 +72,26 @@
                         <br><br>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-6 text-start">
+                                <div class="col-lg-5 text-start">
                                     <p><b>User-Name :</b> <?php echo $information['user_name'];?></p>
                                     <p><b>User-Mobile :</b> <?php echo $information['user_mobile'];?></p>
                                     <p><b>User-Address :</b> <?php echo $information['house_no'];?> &nbsp;<?php echo $information['street'];?> &nbsp;<?php echo  $information['landmark']; ?></p>
                                     <p><b>Pincode : </b> <?php echo $information['pincode'];?></p>
                                 </div>
-                                <div class="col-lg-6 text-start">
-                                    <div class="sub_div">
-                                        <p><b>Order no :</b> <?php echo $information['order_no']?></p>
-                                        <p><b>Order amt :</b> <?php echo $information['order_amt']?></p>
+                                <div class="col-lg-7 text-start">
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <p><b>Order no :</b> <?php echo $information['order_no']?></p>
+                                            <p><b>Order at :</b> <?php echo $information['order_at']?></p>
+                                            <p><b>Cafeteria Name : </b><?php echo $information['caf_name']?></p>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <p><b>Meal :</b> <?php echo $information['meal_name']?></p>
+                                                <p><b>Order amt :</b> <?php echo $information['order_amt']?></p>
+                                            <p><b>Location :</b> <?php echo $information['loca_name']?></p>
+                                        </div>
                                     </div>
-                                    <div class="sub_div">
-                                        <p><b>Cafeteria Name : </b><?php echo $information['caf_name']?></p>
-                                        <p><b>Location :</b> <?php echo $information['loca_name']?></p>
-                                    </div>
-                                    <div class="sub_div">
-                                        <p><b>Meal :</b> <?php echo $information['meal_name']?></p>
-                                        <p><b>Order at :</b> <?php echo $information['order_at']?></p>
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <div class="row food_lists">
@@ -141,6 +141,117 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Status</h3>
+                        </div>
+                        <!-- <form action="<?php //echo site_url('/admin/Orders/add_status')?>" method="post"> -->
+                            <?php //echo form_open('/admin/orders/add_status'); ?>
+                            <form id="orderForm"> 
+                        <div class="card-body">
+                            <div class="row">
+                                <input type="hidden" value="<?php echo $information['order_id'];?>" id="order_ref" name="order_ref"/>
+                                <div class="col-lg-12">
+                                    <select class="form-control" id="status" name="status">
+                                        <option value="pending">Pending</option>
+                                        <option value="delivered">Delivered</option>
+                                        <option value="cancel">Cancelled</option>
+                                    </select>
+                                </div>
+                            </div><br>
+                            
+                            
+                            <div class="row">
+                            <label for="description">Description:</label>
+                                <div class="col-lg-12">
+                                    <textarea name="description" placeholder="Describe" style="width:100%" class="form-control" rows="4" id="description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex justify-content-center">
+                            <button class="btn btn-info" id="save_button" type="submit">Submit</button>
+                        </div>
+                    </form>
+                        
+                    <!-- </form> -->
+                    
+                </div> 
+                
+                <div class="card sub_gap1">
+                <div class="card-header border-transparent d-flex justify-content-between">
+                    <h3 ><b>Orders</b></h3>
+
+                    <div class="card-tools ">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-1" style="display: block;">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="orderDetails">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Timing</th>
+                                    <th>Description</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody id="status_list">
+                                    
+
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section><br><br>
+<script>
+         $(document).ready(function() {
+            var initialOrderRef = $('#order_ref').val();
+            if (initialOrderRef) {
+                displayOrderDetails(initialOrderRef);
+            }
+            $('#orderForm').on('submit', function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: '<?php echo site_url('admin/Orders/add_status'); ?>',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        displayOrderDetails(response);
+                    }
+                });
+            });
+        });
+
+        function displayOrderDetails(orderRef) {
+            $.ajax({
+                url: '<?php echo site_url('admin/Orders/get_status'); ?>',
+                type: 'GET',
+                data: { order_ref: orderRef },
+                success: function(data) {
+                    const orderDetails = JSON.parse(data);
+                    let html = '';
+
+                    orderDetails.forEach(order => {
+                        html += '<tr>';
+                        html += '<td>' + order.status + '</td>';
+                        html += '<td>' + order.description + '</td>';
+                        html += '<td>' + order.updatedat + '</td>';
+                        html += '</tr>';
+                    });
+
+                    $('#orderDetails tbody').html(html);
+                }
+            });
+        }
+    </script>

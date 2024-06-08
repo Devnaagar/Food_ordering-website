@@ -26,10 +26,11 @@
                                     <tr>
                                         <th style="width: 10px">S.NO.</th>
                                         <th>Order No.</th>
+                                        <th>Ordered At</th>
                                         <th>Order Amount</th>
                                         <th>user ID</th>
                                         <th>User Name</th>
-                                        <th>Ordered At</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -45,13 +46,14 @@
                                             <tr>
                                                 <td><?php echo $sno; ?></td>
                                                 <td><?php echo $order['order_no']; ?></td>
+                                                <td><?php echo $order['order_at']?></td>
                                                 <td><?php echo $order['order_amt']?></td>
                                                 <td><?php echo $order['user_id']?></td>
                                                 <td><?php echo $order['name']?></td>
-                                                <td><?php echo $order['order_at']?></td>
+                                                <td><?php echo $order['status']?></td>
                                                 <td class="d-flex justify-content-around">
-                                                    <a href="<?php echo site_url('/admin/orders/delete_order/'.$order['order_id']); ?>" class="btn btn-danger">Delete</a>
                                                     <a href="<?php echo site_url('/admin/orders/invoice_page/'.$order['order_id']); ?>" class="btn btn-outline-success">View</a>
+                                                    <a href="<?php echo site_url('/admin/orders/delete_order/'.$order['order_id']); ?>" class="btn btn-danger">Delete</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -65,15 +67,6 @@
                         </div>
 
                         
-                    </div>
-                    <div class="card-footer clearfix">
-                        <ul class="pagination pagination-sm m-0 float-right">
-                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                        </ul>
                     </div>
                 </div>
             </div>

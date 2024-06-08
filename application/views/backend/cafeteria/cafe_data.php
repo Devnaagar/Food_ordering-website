@@ -71,9 +71,8 @@
                     <tr>
                       <th style="width: 10px">S.NO.</th>
                       <th>Cafeteria</th>
-                      <th>Createdat</th>
-                      <th>Updatedat</th>
                       <th>Locations</th>
+                      <th>Createdat</th>
                       <th>Actions</th>
                       
                     </tr>
@@ -90,9 +89,8 @@
                         <tr>
                           <td><?php echo $sno; ?></td>
                           <td><?php echo $cafe['caf_name']; ?></td>
-                          <td><?php echo $cafe['createdat']?></td>
-                          <td><?php echo $cafe['updatedat']?></td>
                           <td><?php echo $cafe['loca_name']?></td>
+                          <td><?php echo $cafe['createdat']?></td>
 
                           <td>
                               <a href="<?php echo site_url('/admin/cafeteria/delete_cafeteria/'.$cafe['caf_id']); ?>" class="btn btn-danger">Delete</a>
@@ -113,15 +111,7 @@
             </div>
                       
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                </ul>
-              </div>
+              
             </div>
             <!-- /.card -->
 

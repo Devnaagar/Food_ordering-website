@@ -61,6 +61,10 @@
     }
 </style>
 <br><br><br>
+
+<?php
+//    echo "<pre>";print_r($order_number);die;
+?>
 <section >
     <div class="container">
         <div class="row">
@@ -180,7 +184,7 @@
                             <input class="gtotal form-control" value="00" id="gtotal" name="g_total"/>
                             <!-- <input name="g_total" value="calculateTotal()" /> -->
                             <input type="hidden" value="<?php echo $this->session->userdata('user_id'); ?>" name="user_id_ref"/>
-                            <input type="hidden" id="order_num" name="order_num"/>
+                            <input type="hidden" id="order_num" name="order_num" value="<?php $order_number?>"/>
 
                         </div>
                     </div>
@@ -260,15 +264,7 @@
                 checkbox.style.display = 'none';
             }
         }
-        function generateRandomString() {
-            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            var charactersLength = characters.length;
-            var result = '';
-            for (var i = 0; i < 8; i++) {
-                result += characters.charAt(Math.floor(Math.random() * charactersLength));
-            }
-            document.getElementById('order_num').value = result;
-        }
+        
 </script>
 
 <script>
