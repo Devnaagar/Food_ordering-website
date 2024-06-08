@@ -109,10 +109,10 @@ class Home extends CI_Controller {
         
         $this->form_validation->set_rules('g_total', 'G_total','required');
         $this->form_validation->set_rules('user_id_ref', 'User_ID','required');
-        $this->form_validation->set_rules('order_num', 'Order_num','required');
         $location_id =$this->session->userdata('location_ref');
         $meal_id =$this->session->userdata('meal_ref');
         $caf_id =$this->session->userdata('caf_ref');
+        $order_number = $this->food_order->generate_order_number();
 
         // $meal_id= $this->input->post('meals') ;
         // $caf_id= $this->input->post('cafeteria') ;
@@ -129,7 +129,7 @@ class Home extends CI_Controller {
             $data = array(
                 'order_amt' => $this->input->post('g_total'),
                 'user_refer' => $this->input->post('user_id_ref'),
-                'order_no' => $this->input->post('order_num'), 
+                'order_no' => $order_number,
                 'loc_id_ref'=>$location_id,
                 'meal_id_ref'=> $meal_id,
                 'caf_id_ref'=> $caf_id

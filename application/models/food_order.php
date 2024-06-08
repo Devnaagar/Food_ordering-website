@@ -149,7 +149,7 @@ class Food_order extends CI_Model {
     //ordersssssssss
 
     public function get_all_order() {
-        $this->db->select('orders.order_id,orders.order_no,orders.order_amt,orders.order_at,users.user_id,users.name');
+        $this->db->select('orders.order_id,orders.order_no,orders.order_amt,orders.order_at,users.user_id,users.name,orders.status');
         $this->db->from('orders');
         $this->db->join('users', 'orders.user_refer=users.user_id ');
         $query = $this->db->get();
@@ -271,7 +271,7 @@ class Food_order extends CI_Model {
 
     public function get_invoice_address($order_id){
         $this->db->where('order_id', $order_id);
-        $this->db->select('orders.order_id,orders.order_no,orders.order_amt,orders.order_at,delivery_address.deli_id,delivery_address.user_name,delivery_address.user_mobile,delivery_address.house_no,delivery_address.landmark,delivery_address.street,delivery_address.pincode,locations.loca_name,cafeteria.caf_name,meals.meal_name');
+        $this->db->select('orders.order_id,orders.order_no,orders.order_amt,orders.order_at,delivery_address.deli_id,delivery_address.user_name,delivery_address.user_mobile,delivery_address.house_no,delivery_address.landmark,delivery_address.street,delivery_address.pincode,locations.loca_name,cafeteria.caf_name,meals.meal_name,orders.status');
         $this->db->from('orders');
         $this->db->join('delivery_address', 'orders.user_refer=delivery_address.user_id_ref');
         $this->db->join('locations', 'orders.loc_id_ref=locations.id');
@@ -293,12 +293,16 @@ class Food_order extends CI_Model {
         $this->db->where('DATE(order_at)', 'CURDATE()', FALSE);
         return $this->db->count_all_results('orders');
     }
-    public function count_orders() {
-        return $this->db->count_all('orders');
+    public function count_orders_current_month() {
+        $this->db->where('MONTH(order_at)', 'MONTH(CURDATE())', FALSE);
+        $this->db->where('YEAR(order_at)', 'YEAR(CURDATE())', FALSE);
+        return $this->db->count_all_results('orders');
     }
 
-    public function count_users() {
-        return $this->db->count_all('users');
+    public function count_users_current_month() {
+        $this->db->where('MONTH(createdat)', 'MONTH(CURDATE())', FALSE);
+        $this->db->where('YEAR(createdat)', 'YEAR(CURDATE())', FALSE);
+        return $this->db->count_all_results('users');
     }
 
     public function count_users_today() {
@@ -312,11 +316,41 @@ class Food_order extends CI_Model {
         return $query->row()->order_amt;
     }
 
-    // Method to get the overall total order amount
-    public function total_amount_overall() {
+    public function total_amount_current_month() {
         $this->db->select_sum('order_amt');
+        $this->db->where('MONTH(order_at)', 'MONTH(CURDATE())', FALSE);
+        $this->db->where('YEAR(order_at)', 'YEAR(CURDATE())', FALSE);
         $query = $this->db->get('orders');
         return $query->row()->order_amt;
+    }
+
+    public function generate_order_number() {
+        $this->db->select('COUNT(order_id) as order_count');
+        $this->db->where('DATE(order_at)', 'CURDATE()', FALSE);
+        $query = $this->db->get('orders');
+        $order_count = $query->row()->order_count;
+        $order_count++;
+        $date = date('d/m/y');
+        $formatted_order_number = sprintf('ORD%s-%04d', $date, $order_count);
+        return $formatted_order_number;
+    }
+
+
+    public function insert_order($data) {
+        return $this->db->insert('order_status', $data);
+    }
+
+    public function get_order($order_ref) {
+        $this->db->where('order_ref', $order_ref);
+        $query = $this->db->get('order_status');
+        return $query->result_array();
+    }
+
+    // Method to get order status by order_ref
+    public function update_order_status($order_ref, $status) {
+        $this->db->where('order_id', $order_ref);
+        $this->db->update('orders', array('status' => $status));
+        return $this->db->affected_rows() > 0;
     }
 
 }

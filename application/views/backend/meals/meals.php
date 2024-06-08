@@ -59,8 +59,7 @@
                       <th style="width: 10px">S.NO.</th>
                       <th>Meals</th>
                       <th>Createdat</th>
-                      <th>Updatedat</th>
-                      <th>Actions</th>
+                      <th style="width: 100px">Actions</th>
                       
                     </tr>
                   </thead>
@@ -77,7 +76,6 @@
                           <td><?php echo $sno; ?></td>
                           <td><?php echo $meal->meal_name; ?></td>
                           <td><?php echo $meal->createdat?></td>
-                          <td><?php echo $meal->updatedat?></td>
 
                           <td>
                               <a href="<?php echo site_url('/admin/meals/delete_meal/'.$meal->meal_id); ?>" class="btn btn-danger">Delete</a>
