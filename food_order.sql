@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2024 at 12:56 PM
+-- Generation Time: Jun 08, 2024 at 02:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -157,7 +157,8 @@ INSERT INTO `meals` (`meal_id`, `meal_name`, `status`, `createdat`, `updatedat`)
 (6, 'Supper', 0, '2024-05-28 12:10:28', '2024-05-28 12:10:28'),
 (7, 'Salad', 0, '2024-05-28 12:10:58', '2024-05-28 12:10:58'),
 (8, 'Soups', 0, '2024-05-28 12:11:22', '2024-05-28 12:11:22'),
-(9, 'Afternoon Tea', 0, '2024-05-28 12:17:32', '2024-05-28 12:17:32');
+(9, 'Afternoon Tea', 0, '2024-05-28 12:17:32', '2024-05-28 12:17:32'),
+(10, 'test4', 0, '2024-06-08 14:36:25', '2024-06-08 14:36:25');
 
 -- --------------------------------------------------------
 
@@ -210,18 +211,16 @@ CREATE TABLE `orders` (
   `user_refer` int(11) NOT NULL,
   `meal_id_ref` int(11) DEFAULT NULL,
   `loc_id_ref` int(11) DEFAULT NULL,
-  `caf_id_ref` int(11) DEFAULT NULL
+  `caf_id_ref` int(11) DEFAULT NULL,
+  `status` text NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `order_no`, `order_amt`, `order_at`, `user_refer`, `meal_id_ref`, `loc_id_ref`, `caf_id_ref`) VALUES
-(41, 'znj6k3Ps', 320, '2024-06-06 14:45:23', 19, 4, 7, 12),
-(43, '0akQ5tYG', 160, '2024-06-06 14:48:33', 19, 4, 7, 12),
-(45, 'EfUSn88E', 960, '2024-06-06 15:01:07', 19, 4, 7, 12),
-(46, 'z6TQjSDy', 864, '2024-06-06 16:01:55', 27, 4, 7, 12);
+INSERT INTO `orders` (`order_id`, `order_no`, `order_amt`, `order_at`, `user_refer`, `meal_id_ref`, `loc_id_ref`, `caf_id_ref`, `status`) VALUES
+(50, 'ORD08/06/24-0001', 822, '2024-06-08 11:01:02', 27, 4, 7, 12, 'cancel');
 
 -- --------------------------------------------------------
 
@@ -244,12 +243,31 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`order_item_id`, `order_ref`, `dish_id_ref`, `dish_name`, `rate`, `quantity`, `price`) VALUES
-(18, 41, 14, '.Thali', 160, 2, 320),
-(19, 43, 14, '.Thali', 160, 1, 160),
-(20, 45, 14, '.Thali', 160, 6, 960),
-(21, 46, 15, 'Shahi Paneer', 230, 2, 460),
-(22, 46, 16, 'Tandori Roti', 21, 4, 84),
-(23, 46, 14, 'Thali', 160, 2, 320);
+(31, 50, 15, 'Shahi Paneer', 230, 2, 460),
+(32, 50, 16, 'Tandori Roti', 21, 2, 42),
+(33, 50, 14, 'Thali', 160, 2, 320);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_status`
+--
+
+CREATE TABLE `order_status` (
+  `status_id` int(11) NOT NULL,
+  `order_ref` int(11) NOT NULL,
+  `status` varchar(30) NOT NULL,
+  `updatedat` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `description` varchar(1000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_status`
+--
+
+INSERT INTO `order_status` (`status_id`, `order_ref`, `status`, `updatedat`, `description`) VALUES
+(7, 50, 'delivered', '2024-06-08 17:01:16', 'delivered to pankaj'),
+(8, 50, 'cancel', '2024-06-08 17:15:03', 'due to payment failed');
 
 -- --------------------------------------------------------
 
@@ -284,7 +302,8 @@ INSERT INTO `users` (`user_id`, `name`, `mobile`, `password`, `otp`, `createdat`
 (28, 'hero honda', 7894561230, '654321', 3998, '2024-05-31 14:11:52', '2024-05-31 14:13:18', NULL),
 (29, 'hello', 1472583690, 'hello123', 5681, '2024-05-31 14:16:14', '2024-05-31 14:16:43', NULL),
 (46, 'hiiiiii', 9632587410, '123123', 8924, '2024-05-31 15:00:02', '2024-05-31 15:00:39', NULL),
-(55, 'Sherr singh', 7211424256, 'sher123', 1938, '2024-06-04 15:10:03', '2024-06-04 15:10:36', NULL);
+(55, 'Sherr singh', 7211424256, 'sher123', 1938, '2024-06-04 15:10:03', '2024-06-04 15:10:36', NULL),
+(57, 'test3', 102030405, '1234567', 4858, '2024-06-07 13:09:21', '2024-06-07 13:09:45', NULL);
 
 --
 -- Indexes for dumped tables
@@ -350,6 +369,13 @@ ALTER TABLE `order_items`
   ADD KEY `dish_id_ref` (`dish_id_ref`);
 
 --
+-- Indexes for table `order_status`
+--
+ALTER TABLE `order_status`
+  ADD PRIMARY KEY (`status_id`),
+  ADD KEY `order_id_ref` (`order_ref`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -392,7 +418,7 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT for table `meals`
 --
 ALTER TABLE `meals`
-  MODIFY `meal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `meal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `menu_items`
@@ -404,19 +430,25 @@ ALTER TABLE `menu_items`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT for table `order_status`
+--
+ALTER TABLE `order_status`
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- Constraints for dumped tables
@@ -454,6 +486,12 @@ ALTER TABLE `orders`
 ALTER TABLE `order_items`
   ADD CONSTRAINT `dish_refer` FOREIGN KEY (`dish_id_ref`) REFERENCES `menu_items` (`dish_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `order_ref_id` FOREIGN KEY (`order_ref`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `order_status`
+--
+ALTER TABLE `order_status`
+  ADD CONSTRAINT `order_id_ref` FOREIGN KEY (`order_ref`) REFERENCES `orders` (`order_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
