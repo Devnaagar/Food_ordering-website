@@ -214,70 +214,71 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
 <script>
          $(document).ready(function() {
-            const orderForm = $('#orderForm');
-            const statusSelect = $('#status');
-            const orderRef = $('#order_ref').val();
-            const formKey = 'formDisabled_' + orderRef;
+    const orderForm = $('#orderForm');
+    const statusSelect = $('#status');
+    const orderRef = $('#order_ref').val();
+    const formKey = 'formDisabled_' + orderRef;
 
-            // Function to disable form
-            function disableForm() {
-                orderForm.find('input, select, textarea, button').prop('disabled', true);
-            }
+    // Function to disable form
+    function disableForm() {
+        // console.log('Disabling form'); // Debug log
+        orderForm.find('input, select, textarea, button').prop('disabled', true);
+    }
 
-            // Check if the form should be disabled on page load
-            function checkFormStatus() {
-                $.ajax({
-                    url: '<?php echo site_url('admin/Orders/get_status'); ?>',
-                    type: 'GET',
-                    data: { order_ref: orderRef },
-                    success: function(data) {
-                        // const orderDetails = JSON.parse(data);
-                        const orderDetails = JSON.parse(data);
-                        let html = '';
+    // Check if the form should be disabled on page load
+    function checkFormStatus() {
+        $.ajax({
+            url: '<?php echo site_url('admin/Orders/get_status'); ?>',
+            type: 'GET',
+            data: { order_ref: orderRef },
+            success: function(data) {
+                // console.log(data); // Debug log
+                const orderDetails = JSON.parse(data);
+                let html = '';
 
-                        orderDetails.forEach(order => {
-                            html += '<tr>';
-                            html += '<td>' + order.status + '</td>';
-                            html += '<td>' + order.description + '</td>';
-                            html += '<td>' + order.updatedat + '</td>';
-                            html += '</tr>';
-                        });
-
-                        $('#orderDetails tbody').html(html);
-                        if (orderDetails.length > 0) {
-                            const lastStatus = orderDetails[orderDetails.length - 1].status;
-                            statusSelect.val(lastStatus);
-
-                            if (lastStatus === 'delivered') {
-                                disableForm();
-                            }
-                        }
-                    }
+                orderDetails.forEach(order => {
+                    html += '<tr>';
+                    html += '<td>' + order.status + '</td>';
+                    html += '<td>' + order.description + '</td>';
+                    html += '<td>' + order.updatedat + '</td>';
+                    html += '</tr>';
                 });
-            }
 
-            checkFormStatus();
+                $('#orderDetails tbody').html(html);
+                if (orderDetails.length > 0) {
+                    const lastStatus = orderDetails[0].status;
+                    statusSelect.val(lastStatus);
+                    // console.log(lastStatus);
 
-            orderForm.on('submit', function(e) {
-                e.preventDefault();
-
-                if (statusSelect.val() === 'delivered') {
-                    localStorage.setItem(formKey, 'true');
+                    if (lastStatus === 'delivered') {
+                        disableForm();
+                    }
                 }
-
-                $.ajax({
-                    url: '<?php echo site_url('admin/Orders/add_status'); ?>',
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        checkFormStatus();
-                        $('#mesgbocx').html('Status saved successfully');
-                        $('#successToast').toast('show');
-                        
-                    }
-                });
-            });
+            }
         });
+    }
+
+    checkFormStatus();
+
+    orderForm.on('submit', function(e) {
+        e.preventDefault();
+
+        if (statusSelect.val() === 'delivered') {
+            localStorage.setItem(formKey, 'true');
+        }
+
+        $.ajax({
+            url: '<?php echo site_url('admin/Orders/add_status'); ?>',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(response) {
+                checkFormStatus();
+                $('#successToast').toast('show');
+                $('#mesgbocx').html('Status saved successfully');
+            }
+        });
+    });
+});
     </script>
     <div aria-live="polite" aria-atomic="true" style="position: relative;">
     <div style="position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); z-index: 9999;">

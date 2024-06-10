@@ -66,18 +66,20 @@ class Admin_login extends CI_Controller {
     public function dashboard() {
         // print_r($this->session->userdata('admin_id'));die;
         
-        if (!$this->session->userdata('admin_id')) {
+        if ($this->session->userdata('admin_id')) {
+            $data['total_orders_today'] = $this->food_order->count_orders_today();
+            $data['total_orders'] = $this->food_order->count_orders_current_month();
+            $data['total_users_today'] = $this->food_order->count_users_today();
+            $data['total_users'] = $this->food_order->count_users_current_month();
+            $data['total_amount_today'] = $this->food_order->total_amount_today();
+            $data['total_amount_current_month'] = $this->food_order->total_amount_current_month();
+            $data['orders'] = $this->food_order->get_all_order();
+            $data['order_number'] = $this->food_order->generate_order_number();
+            $this->template->load('admin-layout/default_layout', 'contents', 'frontend/dashboard', $data);
+            
+        } else{
             redirect('admin');
         }
-        $data['total_orders_today'] = $this->food_order->count_orders_today();
-        $data['total_orders'] = $this->food_order->count_orders_current_month();
-        $data['total_users_today'] = $this->food_order->count_users_today();
-        $data['total_users'] = $this->food_order->count_users_current_month();
-        $data['total_amount_today'] = $this->food_order->total_amount_today();
-        $data['total_amount_current_month'] = $this->food_order->total_amount_current_month();
-        $data['orders'] = $this->food_order->get_all_order();
-        $data['order_number'] = $this->food_order->generate_order_number();
-		$this->template->load('admin-layout/default_layout', 'contents', 'frontend/dashboard', $data);
     }
     
     public function logout() {
