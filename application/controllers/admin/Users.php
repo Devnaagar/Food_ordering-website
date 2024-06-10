@@ -27,6 +27,9 @@ class Users extends CI_Controller {
 	 */
 	public function lists()
 	{
+		if (!$this->session->userdata('admin_id')) {
+            redirect('admin');
+        }
 		$data = array();
 		$data['users'] = $this->food_order->get_all_users();
 		$this->template->load('admin-layout/default_layout', 'contents', 'backend/user/list',$data);
@@ -36,6 +39,9 @@ class Users extends CI_Controller {
 
 	public function add_user()
 	{
+		if (!$this->session->userdata('admin_id')) {
+            redirect('admin');
+        }
 		// die('here');
 		$data = array();
 		$this->template->load('admin-layout/default_layout', 'contents', 'backend/user/add',$data);
@@ -58,6 +64,7 @@ class Users extends CI_Controller {
 				
 			);
 			$this->food_order->create_user($data);
+			$this->session->set_flashdata('message', 'User added successfully');
 			$this->template->load('admin-layout/default_layout', 'contents', 'backend/user/add',$data);
 			
 		}
@@ -66,6 +73,8 @@ class Users extends CI_Controller {
 
 	public function delete($user_id) {
         $this->food_order->delete_user($user_id);
+		$this->session->set_flashdata('message', 'User deleted successfully');
+        $this->session->set_flashdata('message_type', 'danger');
 	    redirect('/admin/users/lists');
     }
 
@@ -91,7 +100,10 @@ class Users extends CI_Controller {
 				'mobile' => $this->input->post('mobile'),
 				'password' => $this->input->post('password')
             );
+
             $this->food_order->update_user($user_id, $data);
+			$this->session->set_flashdata('message', 'Edited successfully');
+            $this->session->set_flashdata('message_type', 'warning');
             redirect('/admin/users/lists');
         }
     }

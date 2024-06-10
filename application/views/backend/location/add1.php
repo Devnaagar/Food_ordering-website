@@ -20,7 +20,7 @@
                                     <input type="text" name="location" class="form-control" id="exampleInputlocation1" placeholder="Enter Locations" required>
                                 </div>
                                 <div class="card-footer d-flex justify-content-center align-items-center">
-                                    <button type="submit" class="btn btn-primary" value="Create Location" name="submit">Submit</button>
+                                    <button type="submit" class="btn btn-primary" value="Create Location" name="submit" id="liveToastBtn">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -97,6 +97,37 @@
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
 
 
+<div aria-live="polite" aria-atomic="true" style="position: relative;">
+    <div style="position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); z-index: 9999;">
+        <div class="toast" id="successToast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+            <div class="toast-header">
+                <strong class="mr-auto">Notification</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <?php echo $this->session->flashdata('message'); ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    // Check if there's a flashdata message and show the toast
+    <?php if($this->session->flashdata('message')): ?>
+        var messageType = "<?php echo $this->session->flashdata('message_type'); ?>";
+        if (messageType === 'success') {
+            $('#successToast .toast-header').addClass('bg-success text-white');
+            $('#successToast .close').addClass('text-white');
+        } else if (messageType === 'danger') {
+            $('#successToast .toast-header').addClass('bg-danger text-white');
+            $('#successToast .close').addClass('text-white');
+        }
+        $('#successToast').toast('show');
+    <?php endif; ?>
+});
+</script>

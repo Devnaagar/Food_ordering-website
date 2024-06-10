@@ -9,10 +9,13 @@ class Admin_login extends CI_Controller {
         $this->load->model('food_order');
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
+        $this->load->helper('cookie');
     }
     
     public function index() {
         $data=array();
+        $data['email_cookie'] = $this->input->cookie('admin_email');
+        $data['password_cookie'] = $this->input->cookie('admin_password');
 		$this->template->load('admin-layout/admin_front-layout/default_layout', 'contents', 'frontend/admin_login',$data);
         // $this->load->view('admin_login');
     }
@@ -32,17 +35,29 @@ class Admin_login extends CI_Controller {
             // $username = $this->input->post('username');
             $email = $this->input->post('email');
             $password = $this->input->post('password');
+            $remember_me = $this->input->post('remember_me');
             
             $admin = $this->food_order->check_admin_login($email, $password);
             
             if ($admin) {
             // print_r($admin['admin_id']);die;
+                if ($remember_me) {
+                    // Calculate expiration date for 30 days from now
+                    $expiration = time() + (30 * 24 * 60 * 60); // 30 days * 24 hours * 60 minutes * 60 seconds
+
+                    // Set the cookies
+                    $this->input->set_cookie('admin_email', $email, $expiration);
+                    $this->input->set_cookie('admin_password', $password, $expiration);
+                } else {
+                    // If "Remember Me" is not checked, delete the cookies
+                    delete_cookie('admin_email');
+                    delete_cookie('admin_password');
+                }
 
                 $this->session->set_userdata('admin_id', $admin['admin_id']);
                 redirect('admin/dashboard');
             } else {
                 $this->session->set_flashdata('error', 'Invalid login credentials');
-            
                 redirect('admin');
             }
         }

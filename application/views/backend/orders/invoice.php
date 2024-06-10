@@ -31,9 +31,6 @@
         z-index: 1;
     }
 
-    .table-bordered{
-        /* border:2px solid black; */
-    }
     .card-header::after{
         display: none;
     }
@@ -148,31 +145,31 @@
                         </div>
                         <!-- <form action="<?php //echo site_url('/admin/Orders/add_status')?>" method="post"> -->
                             <?php //echo form_open('/admin/orders/add_status'); ?>
-                            <form id="orderForm"> 
-                        <div class="card-body">
-                            <div class="row">
-                                <input type="hidden" value="<?php echo $information['order_id'];?>" id="order_ref" name="order_ref"/>
-                                <div class="col-lg-12">
-                                    <select class="form-control" id="status" name="status">
-                                        <option value="pending">Pending</option>
-                                        <option value="delivered">Delivered</option>
-                                        <option value="cancel">Cancelled</option>
-                                    </select>
-                                </div>
-                            </div><br>
-                            
-                            
-                            <div class="row">
-                            <label for="description">Description:</label>
-                                <div class="col-lg-12">
-                                    <textarea name="description" placeholder="Describe" style="width:100%" class="form-control" rows="4" id="description"></textarea>
+                        <form id="orderForm" method="post"> 
+                            <div class="card-body">
+                                <div class="row">
+                                    <input type="hidden" value="<?php echo $information['order_id'];?>" id="order_ref" name="order_ref"/>
+                                    <div class="col-lg-12">
+                                        <select class="form-control" id="status" name="status">
+                                            <option value="pending">Pending</option>
+                                            <option value="delivered">Delivered</option>
+                                            <option value="cancel">Cancelled</option>
+                                        </select>
+                                    </div>
+                                </div><br>
+                                
+                                
+                                <div class="row">
+                                <label for="description">Description:</label>
+                                    <div class="col-lg-12">
+                                        <textarea name="description" placeholder="Describe" style="width:100%" class="form-control" rows="4" id="description"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-center">
-                            <button class="btn btn-info" id="save_button" type="submit">Submit</button>
-                        </div>
-                    </form>
+                            <div class="card-footer d-flex justify-content-center">
+                                <button class="btn btn-info" id="save_button" type="submit">Submit</button>
+                            </div>
+                        </form>
                         
                     <!-- </form> -->
                     
@@ -213,45 +210,87 @@
         </div>
     </div>
 </section><br><br>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
 <script>
          $(document).ready(function() {
-            var initialOrderRef = $('#order_ref').val();
-            if (initialOrderRef) {
-                displayOrderDetails(initialOrderRef);
+            const orderForm = $('#orderForm');
+            const statusSelect = $('#status');
+            const orderRef = $('#order_ref').val();
+            const formKey = 'formDisabled_' + orderRef;
+
+            // Function to disable form
+            function disableForm() {
+                orderForm.find('input, select, textarea, button').prop('disabled', true);
             }
-            $('#orderForm').on('submit', function(e) {
+
+            // Check if the form should be disabled on page load
+            function checkFormStatus() {
+                $.ajax({
+                    url: '<?php echo site_url('admin/Orders/get_status'); ?>',
+                    type: 'GET',
+                    data: { order_ref: orderRef },
+                    success: function(data) {
+                        // const orderDetails = JSON.parse(data);
+                        const orderDetails = JSON.parse(data);
+                        let html = '';
+
+                        orderDetails.forEach(order => {
+                            html += '<tr>';
+                            html += '<td>' + order.status + '</td>';
+                            html += '<td>' + order.description + '</td>';
+                            html += '<td>' + order.updatedat + '</td>';
+                            html += '</tr>';
+                        });
+
+                        $('#orderDetails tbody').html(html);
+                        if (orderDetails.length > 0) {
+                            const lastStatus = orderDetails[orderDetails.length - 1].status;
+                            statusSelect.val(lastStatus);
+
+                            if (lastStatus === 'delivered') {
+                                disableForm();
+                            }
+                        }
+                    }
+                });
+            }
+
+            checkFormStatus();
+
+            orderForm.on('submit', function(e) {
                 e.preventDefault();
+
+                if (statusSelect.val() === 'delivered') {
+                    localStorage.setItem(formKey, 'true');
+                }
 
                 $.ajax({
                     url: '<?php echo site_url('admin/Orders/add_status'); ?>',
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function(response) {
-                        displayOrderDetails(response);
+                        checkFormStatus();
+                        $('#mesgbocx').html('Status saved successfully');
+                        $('#successToast').toast('show');
+                        
                     }
                 });
             });
         });
-
-        function displayOrderDetails(orderRef) {
-            $.ajax({
-                url: '<?php echo site_url('admin/Orders/get_status'); ?>',
-                type: 'GET',
-                data: { order_ref: orderRef },
-                success: function(data) {
-                    const orderDetails = JSON.parse(data);
-                    let html = '';
-
-                    orderDetails.forEach(order => {
-                        html += '<tr>';
-                        html += '<td>' + order.status + '</td>';
-                        html += '<td>' + order.description + '</td>';
-                        html += '<td>' + order.updatedat + '</td>';
-                        html += '</tr>';
-                    });
-
-                    $('#orderDetails tbody').html(html);
-                }
-            });
-        }
     </script>
+    <div aria-live="polite" aria-atomic="true" style="position: relative;">
+    <div style="position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); z-index: 9999;">
+        <div class="toast" id="successToast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+            <div class="toast-header bg-success text-white">
+                <strong class="mr-auto">Notification</strong>
+                <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <div id="mesgbocx"></div>
+            </div>
+        </div>
+    </div>
+</div>

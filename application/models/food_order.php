@@ -342,6 +342,7 @@ class Food_order extends CI_Model {
 
     public function get_order($order_ref) {
         $this->db->where('order_ref', $order_ref);
+        $this->db->order_by('updatedat', 'DESC');
         $query = $this->db->get('order_status');
         return $query->result_array();
     }

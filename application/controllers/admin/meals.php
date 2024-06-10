@@ -12,6 +12,9 @@ class Meals extends CI_Controller {
 
     // Display a form to create a new user
     public function meal_add() {
+        if (!$this->session->userdata('admin_id')) {
+            redirect('admin');
+        }
         $data['meals'] = $this->food_order->get_all_meal();
 		$this->template->load('admin-layout/default_layout', 'contents', 'backend/meals/meals',$data);
     }
@@ -27,12 +30,16 @@ class Meals extends CI_Controller {
                 'meal_name' => $this->input->post('meal_name')
             );
             $this->food_order->create_meal($data);
+            $this->session->set_flashdata('message', 'Meal added successfully');
+            $this->session->set_flashdata('message_type', 'success');
             redirect('/admin/meals/meal_add');
         }
     }
     
     public function delete_meal($meal_id) {
         $this->food_order->delete_meal($meal_id);
+        $this->session->set_flashdata('message', 'Meal deleted successfully');
+        $this->session->set_flashdata('message_type', 'danger');
 	    redirect('/admin/meals/meal_add');
     }
 

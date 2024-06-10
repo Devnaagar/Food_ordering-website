@@ -132,10 +132,14 @@
                     <br><br>
                     <form class="form-signin" action="<?php echo site_url('Authentication/Login/do_login'); ?>" method="post">
                         <div class="form-group mb-3 col-lg-12">
-                            <input type="text" class="form-control " placeholder="Mobile Number" required autofocus name="mobile"/>
+                            <input type="text" class="form-control " placeholder="Mobile Number" required autofocus name="mobile" value="<?php echo isset($user_num_cookie) ? $user_num_cookie : ''; ?>"/>
                         </div>
                         <div class="form-group mb-3 col-lg-12">
-                            <input type="password" class="form-control " placeholder="Password" name="password" />
+                            <input type="password" class="form-control " placeholder="Password" name="password"  value="<?php echo isset($password_cookie) ? $password_cookie : ''; ?>"/>
+                        </div>
+                        <div class="form-group form-check col-lg-12">
+                            <input type="checkbox" class="form-check-input" id="remember_me" name="remember_me" <?php echo isset($user_num_cookie) ? 'checked' : ''; ?>>
+                            <label class="form-check-label ml-4" for="remember_me">Remember Me</label>
                         </div>
                         <div class="d-flex justify-content-center">
                             <button class="btn btn-lg btn-primary sign" type="submit">Sign in</button>

@@ -27,6 +27,9 @@ class Menu extends CI_Controller {
 	 */
 
     public function index(){
+		if (!$this->session->userdata('admin_id')) {
+            redirect('admin');
+        }
 		$data['meals'] = $this->food_order->get_all_meal();
         $data['location']=$this->food_order->fetch_location();
         $this->template->load('admin-layout/default_layout', 'contents', 'backend/menu_item/items',$data);
@@ -61,6 +64,8 @@ class Menu extends CI_Controller {
 				'locat_ref' => $this->input->post('location_id')
 			);
 			$this->food_order->create_menu($data);
+			$this->session->set_flashdata('message', 'Meal added successfully');
+            $this->session->set_flashdata('message_type', 'success');
 			redirect('admin/menu');
 			
 		}
@@ -68,6 +73,9 @@ class Menu extends CI_Controller {
 
 
 	public function menu_list(){
+		if (!$this->session->userdata('admin_id')) {
+            redirect('admin');
+        }
 		$data = array();
 		$data['items']= $this->food_order->get_all_locat_info();
 		$this->template->load('admin-layout/default_layout', 'contents', 'backend/menu_item/menu_list', $data);
@@ -76,6 +84,8 @@ class Menu extends CI_Controller {
 
 	public function delete_menu($dish_id) {
         $this->food_order->delete_dish($dish_id);
+		$this->session->set_flashdata('message', 'User deleted successfully');
+        $this->session->set_flashdata('message_type', 'danger');
 	    redirect('/admin/menu/menu_list');
     }
 
@@ -115,6 +125,8 @@ class Menu extends CI_Controller {
 				'locat_ref' => $this->input->post('location_id')
 			);
             $this->food_order->update_menu($dish_id, $data);
+			$this->session->set_flashdata('message', 'Edited successfully');
+            $this->session->set_flashdata('message_type', 'warning');
 			redirect('admin/menu/menu_list');
     	}
 	}

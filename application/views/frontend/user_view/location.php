@@ -64,7 +64,7 @@
 <br><br><br>
 <div class="container">
     <div class="row d-flex justify-content-center">
-        <div class="col-md-12 col-lg-12 ">
+        <div class="col-md-12 col-lg-6 ">
             <div class="account-box">
                 <div class="row d-flex justify-content-center">
                     <div class="logo ">

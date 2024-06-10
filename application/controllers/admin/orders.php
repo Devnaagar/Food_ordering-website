@@ -12,6 +12,9 @@ class Orders extends CI_Controller {
 
     // Display a form to create a new user
     public function order_add() {
+        if (!$this->session->userdata('admin_id')) {
+            redirect('admin');
+        }
         // die('here');
         $data['orders'] = $this->food_order->get_all_order();
         $data['order_number'] = $this->food_order->generate_order_number();
@@ -48,6 +51,8 @@ class Orders extends CI_Controller {
     
     public function delete_order($order_id) {
         $this->food_order->delete_order($order_id);
+        $this->session->set_flashdata('message', 'Order deleted successfully');
+        $this->session->set_flashdata('message_type', 'danger');
 	    redirect('/admin/orders/order_add');
     }
 
@@ -81,12 +86,24 @@ class Orders extends CI_Controller {
                 'description' => $description,
                 // 'updated_at' => $updated_at
             );
-            $status_add=$this->food_order->insert_order($data);
+            $status_add = $this->food_order->insert_order($data);
+            
             if ($status_add) {
+                
                 $this->food_order->update_order_status($order_ref, $status);
+                
                 }
+                
                 echo $order_ref;
+            
+                
+                // $this->template->load('admin-layout/default_layout', 'contents', 'backend/orders/invoice');
         }
+        $this->session->set_flashdata('message', 'Status saved successfully');
+        $this->session->set_flashdata('message_type', 'success');
+        redirect('admin/Orders/invoice_page/' . $order_ref);
+        
+
     }
 
 
