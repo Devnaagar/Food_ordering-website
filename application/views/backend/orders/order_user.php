@@ -4,7 +4,7 @@
 ?>
 
 
-<section class="content-header">
+<section class="content-header px-4">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -14,7 +14,7 @@
     </div><!-- /.container-fluid -->
 </section>
     <!-- Main content -->
-<section class="content">
+<section class="content px-4">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -28,7 +28,6 @@
                                         <th>Order No.</th>
                                         <th>Ordered At</th>
                                         <th>Order Amount</th>
-                                        <th>user ID</th>
                                         <th>User Name</th>
                                         <th>Status</th>
                                         <th>Actions</th>
@@ -48,7 +47,7 @@
                                                 <td><?php echo $order['order_no']; ?></td>
                                                 <td><?php echo $order['order_at']?></td>
                                                 <td><?php echo $order['order_amt']?></td>
-                                                <td><?php echo $order['user_id']?></td>
+                                                
                                                 <td><?php echo $order['name']?></td>
                                                 <td><?php echo $order['status']?></td>
                                                 <td class="d-flex justify-content-around">
@@ -59,7 +58,7 @@
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="7" class="text-center">No users found.</td>
+                                            <td colspan="7" class="text-center">No orders found.</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>

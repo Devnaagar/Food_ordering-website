@@ -46,17 +46,17 @@
 
 
 </style>
-<br><br><br>
+
 <?php
    //echo "<pre>";print_r($status);die;
 ?>
-<section>
-    <div class="container">
+<section class="content px-4 my-3">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-9">
                 <div class="card card-primary">
                     <div class="bordered"> 
-                        <div class="card-header">
+                        <div class="card-header mb-3">
                             <div class="row d-flex justify-content-between">
                                 <h6><b>Order ID :</b> <?php echo $information['order_id'];?></h6>
                                 <h6><b>Invoice Date/Time :</b> <?php echo $information['order_at'];?></h6>
@@ -66,8 +66,8 @@
                             </div>
                         </div>
                         
-                        <br><br>
-                        <div class="card-body">
+                        
+                        <div class="card-body mb-5">
                             <div class="row">
                                 <div class="col-lg-5 text-start">
                                     <p><b>User-Name :</b> <?php echo $information['user_name'];?></p>
@@ -91,7 +91,7 @@
                                     
                                 </div>
                             </div>
-                            <div class="row food_lists">
+                            <div class="row food_lists mb-2">
                                 <table class="table table-bordered">
                                     <thead>
                                         <th>Sno.</th>
@@ -115,7 +115,7 @@
                                         <?php endforeach?>
                                     </tbody>
                                 </table>
-                            </div><br>
+                            </div>
                             <div class="row d-flex justify-content-end">
                                 <div class="col-lg-6 d-flex">
                                     <div class="box_total d-flex">
@@ -127,8 +127,6 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <br><br><br>
                         <div class="card-footer">
                             <div class="row d-flex justify-content-center">
                                 <h2 class="text-center">Thank you for your order!!!!!!!</h2>
@@ -147,7 +145,7 @@
                             <?php //echo form_open('/admin/orders/add_status'); ?>
                         <form id="orderForm" method="post"> 
                             <div class="card-body">
-                                <div class="row">
+                                <div class="row mb-2">
                                     <input type="hidden" value="<?php echo $information['order_id'];?>" id="order_ref" name="order_ref"/>
                                     <div class="col-lg-12">
                                         <select class="form-control" id="status" name="status">
@@ -156,7 +154,7 @@
                                             <option value="cancel">Cancelled</option>
                                         </select>
                                     </div>
-                                </div><br>
+                                </div>
                                 
                                 
                                 <div class="row">
@@ -209,7 +207,7 @@
             </div>
         </div>
     </div>
-</section><br><br>
+</section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
 <script>

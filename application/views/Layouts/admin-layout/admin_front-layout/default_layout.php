@@ -24,7 +24,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#" >Re-MEAL</a>
+        <a class="navbar-brand" href="#" >R-MEAL</a>
     </nav>
 
     <div class="content d-flex justify-content-center align-items-center">

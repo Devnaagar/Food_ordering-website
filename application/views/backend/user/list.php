@@ -1,5 +1,5 @@
-<section class="content-header">
-      <div class="container">
+<section class="content-header  px-4">
+      <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Users</h1>
@@ -9,8 +9,8 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
-      <div class="container">
+    <section class="content px-4">
+      <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
             <div class="card card-primary">

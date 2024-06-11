@@ -26,7 +26,9 @@ class Admin_login extends CI_Controller {
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            // die("here");
+            // die("here"); 
+            $this->session->set_flashdata('message', 'Try again');
+            $this->session->set_flashdata('message_type', 'danger');
 		    $this->template->load('admin-layout/admin_front-layout/default_layout', 'contents', 'frontend/admin_login');
         } else {
 
@@ -57,7 +59,6 @@ class Admin_login extends CI_Controller {
                 $this->session->set_userdata('admin_id', $admin['admin_id']);
                 redirect('admin/dashboard');
             } else {
-                $this->session->set_flashdata('error', 'Invalid login credentials');
                 redirect('admin');
             }
         }
@@ -73,8 +74,11 @@ class Admin_login extends CI_Controller {
             $data['total_users'] = $this->food_order->count_users_current_month();
             $data['total_amount_today'] = $this->food_order->total_amount_today();
             $data['total_amount_current_month'] = $this->food_order->total_amount_current_month();
-            $data['orders'] = $this->food_order->get_all_order();
+            $data['orders'] = $this->food_order->get_today_order();
             $data['order_number'] = $this->food_order->generate_order_number();
+            $this->session->set_flashdata('message', 'Login successfully');
+            $this->session->set_flashdata('message_type', 'primary');
+            $this->session->set_userdata('message_timestamp', time() + 2);
             $this->template->load('admin-layout/default_layout', 'contents', 'frontend/dashboard', $data);
             
         } else{

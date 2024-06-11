@@ -3,7 +3,7 @@
 //    echo "<pre>";print_r($data);die;
 ?>
 
-<section class="content-header">
+<section class="content-header px-4">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -12,7 +12,7 @@
         </div>
       </div>
     </section>
-    <section class="content">
+    <section class="content px-4">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -20,42 +20,55 @@
                         <?php echo validation_errors(); ?>
                         <?php echo form_open('/admin/menu/store_dish_info'); ?>
                             <div class="card-body ">
-                                <div class="form-group col-lg-12 d-flex flex-wrap">
-                                    <label for="dish_name" class="mx-2">Dish Name: </label>
-                                    <input type="text" name="dish_name" class="form-control col-lg-11" id="dish_name" placeholder="Enter dish Name" required>
+                                <div class="form-group col-lg-12 ">
+                                    <label for="dish_name" class="">Dish Name: </label>
+                                    <input type="text" name="dish_name" class="form-control col-lg-12" id="dish_name" placeholder="Enter dish Name" required>
                                 </div>
-                                <div class="form-group col-lg-12 d-flex flex-wrap">
-                                    <label for="price" class="mr-1">Price: </label>
-                                    <input type="text" name="price" class="form-control col-lg-5" id="price" placeholder="Enter price" required>
-                                    <label for="meal" class="ml-2">Meal: &nbsp;</label>
-                                    <select name="meal_id" id="meal" class="form-control col-lg-6" required>
-                                        <option value="">select Meal Type</option>
-                                        <?php foreach($meals as $meal): ?>
-                                            
-                                                <option value="<?php echo $meal->meal_id; ?>"><?php echo $meal->meal_name; ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="form-group col-lg-12 d-flex flex-wrap">
-                                    
-                                    <label for="location" class="mx-2">Locations: &nbsp;</label>
-                                    <?php if(!empty($location)): ?>
-                                    <select name="location_id" id="location" class="form-control col-lg-5" required>
-                                        <option value="">select location</option>
-                                        <?php 
-                                            foreach($location as $row){
-                                                echo '<option value="'.$row->id.'">'.$row->Loca_name.'</option>';
-                                            }
-                                        ?> 
-                                    </select>
-                                    <?php else: ?>
-                                        <p>No users found.</p>
-                                    
-                                    <?php endif; ?>
-                                    <label for="cafeteria" class="mx-2">Cafeteria: &nbsp;</label>
-                                        <select name="cafeteria_id" id="cafeteria" class="form-control col-lg-5" required>
-                                            <option value="">select cafeteria</option>
+                                <div class=" sub_con_form col-lg-12 d-flex flex-wrap">
+                                    <div class="form-group col-lg-6">
+                                        <label for="price" class="">Price: </label>
+                                        <input type="text" name="price" class="form-control col-lg-12" id="price" placeholder="Enter price" required>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label for="meal" class="">Meal:</label>
+                                        <select name="meal_id" id="meal" class="form-control col-lg-12" required>
+                                            <option value="">select Meal Type</option>
+                                            <?php foreach($meals as $meal): ?>
+                                                
+                                                    <option value="<?php echo $meal->meal_id; ?>"><?php echo $meal->meal_name; ?></option>
+                                            <?php endforeach; ?>
                                         </select>
+                                    </div>
+                                    
+                                    
+                                </div>
+                                <div class="sub_con_form  col-lg-12 d-flex flex-wrap">
+                                    <div class="form-group col-lg-6">
+                                        <label for="location" class="">Locations: &nbsp;</label>
+                                        <?php if(!empty($location)): ?>
+                                        <select name="location_id" id="location" class="form-control col-lg-12" required>
+                                            <option value="">select location</option>
+                                            <?php 
+                                                foreach($location as $row){
+                                                    echo '<option value="'.$row->id.'">'.$row->Loca_name.'</option>';
+                                                }
+                                            ?> 
+                                        </select>
+                                        <?php else: ?>
+                                            <p>No users found.</p>
+                                        
+                                        <?php endif; ?>
+
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label for="cafeteria" class="">Cafeteria: &nbsp;</label>
+                                            <select name="cafeteria_id" id="cafeteria" class="form-control col-lg-12" required>
+                                                <option value="">select cafeteria</option>
+                                            </select>
+                                    </div>
+                                    
+                                    
+                                    
                                 </div>
                                 <div class="card-footer d-flex justify-content-center align-items-center">
                                     <button type="submit" class="btn btn-primary" value="Create cafe" name="submit">Submit</button>

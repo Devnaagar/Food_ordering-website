@@ -2,7 +2,7 @@
     // echo "<pre>";print_r($items);die;
 ?>
 
-<section class="content-header">
+<section class="content-header px-4">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -13,7 +13,7 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content px-4">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">

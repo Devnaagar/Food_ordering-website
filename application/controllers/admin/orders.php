@@ -57,6 +57,9 @@ class Orders extends CI_Controller {
     }
 
     public function invoice_page($order_id){
+        if (!$this->session->userdata('admin_id')) {
+            redirect('admin');
+        }
         // $data['address']=$this->food_order->get_address();
         $data['information']=$this->food_order->get_invoice_address($order_id);
         // print_r($data);die;
