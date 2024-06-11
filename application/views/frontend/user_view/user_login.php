@@ -114,7 +114,48 @@
             height: 100%;
         }
     }
+    .password-container {
+    position: relative;
+    width: 100%;
+}
+    input[type="password"], input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
 
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+}
+
+.eye-icon .eye {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.eye-icon .slash {
+    position: absolute;
+    top: 0;
+    left: 7px;
+    width: 5%;
+    height: 80%;
+    background: black;
+    transform: rotate(45deg);
+    display: none;
+}
+
+.eye-icon.visible .slash {
+    display: block;
+}
 
 
 </style>
@@ -132,10 +173,21 @@
                     <br><br>
                     <form class="form-signin" action="<?php echo site_url('Authentication/Login/do_login'); ?>" method="post">
                         <div class="form-group mb-3 col-lg-12">
-                            <input type="text" class="form-control " placeholder="Mobile Number" required autofocus name="mobile"/>
+                            <input type="text" class="form-control " placeholder="Mobile Number" required autofocus name="mobile" value="<?php echo isset($user_num_cookie) ? $user_num_cookie : ''; ?>"/>
                         </div>
                         <div class="form-group mb-3 col-lg-12">
-                            <input type="password" class="form-control " placeholder="Password" name="password" />
+                            <div class="password-container">
+                                <input type="password" class="form-control " placeholder="Password" name="password" id="password" value="<?php echo isset($password_cookie) ? $password_cookie : ''; ?>"/>
+                                <span id="togglePassword" class="eye-icon">
+                                    <span class="eye">👁️</span>
+                                    <span class="slash"></span>
+                                </span>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group form-check col-lg-12">
+                            <input type="checkbox" class="form-check-input" id="remember_me" name="remember_me" <?php echo isset($user_num_cookie) ? 'checked' : ''; ?>>
+                            <label class="form-check-label ml-4" for="remember_me">Remember Me</label>
                         </div>
                         <div class="d-flex justify-content-center">
                             <button class="btn btn-lg btn-primary sign" type="submit">Sign in</button>
@@ -151,3 +203,13 @@
         </div>
     </div>
 </section>
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function (e) {
+    const passwordInput = document.getElementById('password');
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    
+    // Toggle the eye icon (optional)
+    this.classList.toggle('visible');
+});
+</script>

@@ -14,6 +14,9 @@ class Home extends CI_Controller {
         }
     }
     public function index(){
+        if (!$this->session->userdata('user_id')) {
+            redirect('login');
+        }
         $data=array();
         // $post = $this->input->post();
         $this->session->set_userdata('location_ref',$this->input->post('location_ref'));

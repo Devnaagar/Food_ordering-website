@@ -12,6 +12,9 @@ class Locations extends CI_Controller {
 
     // Display a form to create a new user
     public function location_add() {
+        if (!$this->session->userdata('admin_id')) {
+            redirect('admin');
+        }
         $data = array();
         $data['locations'] = $this->food_order->get_all_location();
 		$this->template->load('admin-layout/default_layout', 'contents', 'backend/location/add1',$data);
@@ -29,6 +32,8 @@ class Locations extends CI_Controller {
                 'loca_name' => $this->input->post('location'), // In a real application, hash the password
                 
             );
+            $this->session->set_flashdata('message', 'Location added successfully');
+            $this->session->set_flashdata('message_type', 'success');
             $this->food_order->create_location($data);
             redirect('/admin/Locations/location_add');
         }
@@ -36,6 +41,8 @@ class Locations extends CI_Controller {
     
     public function delete_locat($id) {
         $this->food_order->delete_locations($id);
+        $this->session->set_flashdata('message', 'Location deleted successfully');
+        $this->session->set_flashdata('message_type', 'danger');
 	    redirect('/admin/Locations/location_add');
     }
 

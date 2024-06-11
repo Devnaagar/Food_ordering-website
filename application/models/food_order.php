@@ -270,14 +270,15 @@ class Food_order extends CI_Model {
 
 
     public function get_invoice_address($order_id){
-        $this->db->where('order_id', $order_id);
         $this->db->select('orders.order_id,orders.order_no,orders.order_amt,orders.order_at,delivery_address.deli_id,delivery_address.user_name,delivery_address.user_mobile,delivery_address.house_no,delivery_address.landmark,delivery_address.street,delivery_address.pincode,locations.loca_name,cafeteria.caf_name,meals.meal_name,orders.status');
         $this->db->from('orders');
-        $this->db->join('delivery_address', 'orders.user_refer=delivery_address.user_id_ref');
-        $this->db->join('locations', 'orders.loc_id_ref=locations.id');
-        $this->db->join('cafeteria', 'orders.caf_id_ref=cafeteria.caf_id');
-        $this->db->join('meals', 'orders.meal_id_ref=meals.meal_id');
+        $this->db->join('delivery_address', 'orders.user_refer=delivery_address.user_id_ref','left');
+        $this->db->join('locations', 'orders.loc_id_ref=locations.id','left');
+        $this->db->join('cafeteria', 'orders.caf_id_ref=cafeteria.caf_id','left');
+        $this->db->join('meals', 'orders.meal_id_ref=meals.meal_id','left');
+        $this->db->where('orders.order_id', $order_id);
         $query = $this->db->get();
+        // echo $this->db->last_query();exit;
         return $query->row_array();
         // print_r($query);die;
 
@@ -324,6 +325,18 @@ class Food_order extends CI_Model {
         return $query->row()->order_amt;
     }
 
+    public function get_today_order() {
+        $this->db->select('orders.order_id,orders.order_no,orders.order_amt,orders.order_at,users.user_id,users.name,orders.status');
+        $this->db->from('orders');
+        $this->db->join('users', 'orders.user_refer=users.user_id ');
+        $this->db->where('DATE(order_at)', 'CURDATE()', FALSE);
+        $this->db->where('MONTH(order_at)', 'MONTH(CURDATE())', FALSE);
+        $this->db->where('YEAR(order_at)', 'YEAR(CURDATE())', FALSE);
+        $query = $this->db->get();
+        return $query->result_array();
+        
+    }
+
     public function generate_order_number() {
         $this->db->select('COUNT(order_id) as order_count');
         $this->db->where('DATE(order_at)', 'CURDATE()', FALSE);
@@ -342,6 +355,7 @@ class Food_order extends CI_Model {
 
     public function get_order($order_ref) {
         $this->db->where('order_ref', $order_ref);
+        $this->db->order_by('updatedat', 'DESC');
         $query = $this->db->get('order_status');
         return $query->result_array();
     }

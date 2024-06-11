@@ -31,9 +31,6 @@
         z-index: 1;
     }
 
-    .table-bordered{
-        /* border:2px solid black; */
-    }
     .card-header::after{
         display: none;
     }
@@ -49,17 +46,17 @@
 
 
 </style>
-<br><br><br>
+
 <?php
    //echo "<pre>";print_r($status);die;
 ?>
-<section>
-    <div class="container">
+<section class="content px-4 my-3">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-9">
                 <div class="card card-primary">
                     <div class="bordered"> 
-                        <div class="card-header">
+                        <div class="card-header mb-3">
                             <div class="row d-flex justify-content-between">
                                 <h6><b>Order ID :</b> <?php echo $information['order_id'];?></h6>
                                 <h6><b>Invoice Date/Time :</b> <?php echo $information['order_at'];?></h6>
@@ -69,8 +66,8 @@
                             </div>
                         </div>
                         
-                        <br><br>
-                        <div class="card-body">
+                        
+                        <div class="card-body mb-5">
                             <div class="row">
                                 <div class="col-lg-5 text-start">
                                     <p><b>User-Name :</b> <?php echo $information['user_name'];?></p>
@@ -94,7 +91,7 @@
                                     
                                 </div>
                             </div>
-                            <div class="row food_lists">
+                            <div class="row food_lists mb-2">
                                 <table class="table table-bordered">
                                     <thead>
                                         <th>Sno.</th>
@@ -118,7 +115,7 @@
                                         <?php endforeach?>
                                     </tbody>
                                 </table>
-                            </div><br>
+                            </div>
                             <div class="row d-flex justify-content-end">
                                 <div class="col-lg-6 d-flex">
                                     <div class="box_total d-flex">
@@ -130,8 +127,6 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <br><br><br>
                         <div class="card-footer">
                             <div class="row d-flex justify-content-center">
                                 <h2 class="text-center">Thank you for your order!!!!!!!</h2>
@@ -148,31 +143,31 @@
                         </div>
                         <!-- <form action="<?php //echo site_url('/admin/Orders/add_status')?>" method="post"> -->
                             <?php //echo form_open('/admin/orders/add_status'); ?>
-                            <form id="orderForm"> 
-                        <div class="card-body">
-                            <div class="row">
-                                <input type="hidden" value="<?php echo $information['order_id'];?>" id="order_ref" name="order_ref"/>
-                                <div class="col-lg-12">
-                                    <select class="form-control" id="status" name="status">
-                                        <option value="pending">Pending</option>
-                                        <option value="delivered">Delivered</option>
-                                        <option value="cancel">Cancelled</option>
-                                    </select>
+                        <form id="orderForm" method="post"> 
+                            <div class="card-body">
+                                <div class="row mb-2">
+                                    <input type="hidden" value="<?php echo $information['order_id'];?>" id="order_ref" name="order_ref"/>
+                                    <div class="col-lg-12">
+                                        <select class="form-control" id="status" name="status">
+                                            <option value="pending">Pending</option>
+                                            <option value="delivered">Delivered</option>
+                                            <option value="cancel">Cancelled</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div><br>
-                            
-                            
-                            <div class="row">
-                            <label for="description">Description:</label>
-                                <div class="col-lg-12">
-                                    <textarea name="description" placeholder="Describe" style="width:100%" class="form-control" rows="4" id="description"></textarea>
+                                
+                                
+                                <div class="row">
+                                <label for="description">Description:</label>
+                                    <div class="col-lg-12">
+                                        <textarea name="description" placeholder="Describe" style="width:100%" class="form-control" rows="4" id="description"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-center">
-                            <button class="btn btn-info" id="save_button" type="submit">Submit</button>
-                        </div>
-                    </form>
+                            <div class="card-footer d-flex justify-content-center">
+                                <button class="btn btn-info" id="save_button" type="submit">Submit</button>
+                            </div>
+                        </form>
                         
                     <!-- </form> -->
                     
@@ -212,46 +207,89 @@
             </div>
         </div>
     </div>
-</section><br><br>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
 <script>
          $(document).ready(function() {
-            var initialOrderRef = $('#order_ref').val();
-            if (initialOrderRef) {
-                displayOrderDetails(initialOrderRef);
-            }
-            $('#orderForm').on('submit', function(e) {
-                e.preventDefault();
+    const orderForm = $('#orderForm');
+    const statusSelect = $('#status');
+    const orderRef = $('#order_ref').val();
+    const formKey = 'formDisabled_' + orderRef;
 
-                $.ajax({
-                    url: '<?php echo site_url('admin/Orders/add_status'); ?>',
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        displayOrderDetails(response);
-                    }
+    // Function to disable form
+    function disableForm() {
+        // console.log('Disabling form'); // Debug log
+        orderForm.find('input, select, textarea, button').prop('disabled', true);
+    }
+
+    // Check if the form should be disabled on page load
+    function checkFormStatus() {
+        $.ajax({
+            url: '<?php echo site_url('admin/Orders/get_status'); ?>',
+            type: 'GET',
+            data: { order_ref: orderRef },
+            success: function(data) {
+                // console.log(data); // Debug log
+                const orderDetails = JSON.parse(data);
+                let html = '';
+
+                orderDetails.forEach(order => {
+                    html += '<tr>';
+                    html += '<td>' + order.status + '</td>';
+                    html += '<td>' + order.description + '</td>';
+                    html += '<td>' + order.updatedat + '</td>';
+                    html += '</tr>';
                 });
-            });
-        });
 
-        function displayOrderDetails(orderRef) {
-            $.ajax({
-                url: '<?php echo site_url('admin/Orders/get_status'); ?>',
-                type: 'GET',
-                data: { order_ref: orderRef },
-                success: function(data) {
-                    const orderDetails = JSON.parse(data);
-                    let html = '';
+                $('#orderDetails tbody').html(html);
+                if (orderDetails.length > 0) {
+                    const lastStatus = orderDetails[0].status;
+                    statusSelect.val(lastStatus);
+                    // console.log(lastStatus);
 
-                    orderDetails.forEach(order => {
-                        html += '<tr>';
-                        html += '<td>' + order.status + '</td>';
-                        html += '<td>' + order.description + '</td>';
-                        html += '<td>' + order.updatedat + '</td>';
-                        html += '</tr>';
-                    });
-
-                    $('#orderDetails tbody').html(html);
+                    if (lastStatus === 'delivered') {
+                        disableForm();
+                    }
                 }
-            });
+            }
+        });
+    }
+
+    checkFormStatus();
+
+    orderForm.on('submit', function(e) {
+        e.preventDefault();
+
+        if (statusSelect.val() === 'delivered') {
+            localStorage.setItem(formKey, 'true');
         }
+
+        $.ajax({
+            url: '<?php echo site_url('admin/Orders/add_status'); ?>',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(response) {
+                checkFormStatus();
+                $('#successToast').toast('show');
+                $('#mesgbocx').html('Status saved successfully');
+            }
+        });
+    });
+});
     </script>
+    <div aria-live="polite" aria-atomic="true" style="position: relative;">
+    <div style="position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); z-index: 9999;">
+        <div class="toast" id="successToast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+            <div class="toast-header bg-success text-white">
+                <strong class="mr-auto">Notification</strong>
+                <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <div id="mesgbocx"></div>
+            </div>
+        </div>
+    </div>
+</div>

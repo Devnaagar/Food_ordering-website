@@ -40,7 +40,7 @@
     <div class="content-wrapper">
       
       <?php echo $contents; ?>
-    </div><br>
+    </div>
     <?php $this->load->view('Layouts/admin-layout/footer'); ?>
 </div>
     <!-- jQuery -->
